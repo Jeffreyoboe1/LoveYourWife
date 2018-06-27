@@ -152,6 +152,7 @@ public class Day extends Fragment {
                         btnComplete.setText("Completed!");
 
                         Intent intent = new Intent(getActivity(), ChallengeComplete.class);
+                        intent.putExtra("DAY", day);
                         startActivity(intent);
 
                         // go to the next page
