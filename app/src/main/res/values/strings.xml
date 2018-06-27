@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Love Your Wife</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="day1text"></string>
+    <string name="day2text"></string>
+    <string name="day3text"></string>
+    <string name="day4text"></string>
+    <string name="day5text"></string>
+    <string name="day6text"></string>
+    <string name="day7text"></string>
+    <string name="day8text"></string>
+    <string name="day9text"></string>
+    <string name="day10text"></string>
+    <string name="day11text"></string>
+    <string name="day12text"></string>
+    <string name="day13text"></string>
+    <string name="day14text"></string>
+    <string name="day15text"></string>
+    <string name="day16text"></string>
+    <string name="day17text"></string>
+    <string name="day18text"></string>
+    <string name="day19text"></string>
+    <string name="day20text"></string>
+    <string name="day21text"></string>
+    <string name="day22text"></string>
+    <string name="day23text"></string>
+    <string name="day24text"></string>
+    <string name="day25text"></string>
+    <string name="day26text"></string>
+    <string name="day27text"></string>
+    <string name="day28text"></string>
+    <string name="day29text"></string>
+    <string name="day30text"></string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_challenge_complete">ChallengeComplete</string>
+</resources>
