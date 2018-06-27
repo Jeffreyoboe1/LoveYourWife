@@ -126,6 +126,7 @@ public class Day extends Fragment {
 
             if (dayCompleted) {
                 btnComplete.setText("Completed!");
+                btnComplete.setEnabled(false);
             } else {
                 btnComplete.setText("Complete");
             }
@@ -141,6 +142,8 @@ public class Day extends Fragment {
             }
 
 
+
+
             btnComplete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -153,22 +156,16 @@ public class Day extends Fragment {
 
                         btnComplete.setText("Completed!");
 
+                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LASTCOMPLETED", 0);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("LASTCOMPLETED", day);
+                        editor.commit();
+
                         Intent intent = new Intent(getActivity(), ChallengeComplete.class);
                         intent.putExtra("DAY", day);
                         startActivity(intent);
-
-                        // go to the next page
-
-                    /*
-                    ViewPager pager = (ViewPager) container;
-                    int currentPage = pager.getCurrentItem();
-                    if (currentPage < 30) {
-                        pager.setCurrentItem(currentPage + 1);
-                    } else {  // if on last page.. then toast
-                        Toast.makeText(getActivity(), "Congratulations!", Toast.LENGTH_SHORT).show();
                     }
-                    */
-                    } else {
+                    else {
                         Toast.makeText(getActivity(), "You can say a little more than that! ", Toast.LENGTH_LONG).show();
                     }
 

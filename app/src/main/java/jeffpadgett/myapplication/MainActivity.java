@@ -1,5 +1,6 @@
 package jeffpadgett.myapplication;
 
+import android.content.SharedPreferences;
 import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -54,13 +55,22 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
-        // get the Intent.  Move to appropriate page to start off...
 
+        // get last completed day, jump to the next challenge you have to complete.
+        SharedPreferences sharedPref = getSharedPreferences("LASTCOMPLETED",0);
+        int lastCompleted = sharedPref.getInt("LASTCOMPLETED", 0);
+
+        if (lastCompleted != 0 ){
+            Log.d("LASTCOMPLETED", lastCompleted + "");
+            mViewPager.setCurrentItem(lastCompleted);  // do not need + 1, because pager starts at 0.
+        }
+
+        // get the Intent, if coming from Challenge Completed Page.  Move to appropriate next page to start off...
         int nextDay = getIntent().getIntExtra("NEXTDAY", 0);
 
         if (nextDay != 0) {
             Log.d("INTTEST", ""+ nextDay);
-            mViewPager.setCurrentItem(nextDay);
+            mViewPager.setCurrentItem(nextDay);  // do not need + 1, because pager starts at 0.
         }
 
 
