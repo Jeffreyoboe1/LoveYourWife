@@ -147,7 +147,9 @@ public class Day extends Fragment {
 
                     // has this day been completed?
 
-                    if (!editText.getText().toString().isEmpty()) {
+
+
+                    if (editText.getText().length() > 50) {
 
                         btnComplete.setText("Completed!");
 
@@ -167,7 +169,7 @@ public class Day extends Fragment {
                     }
                     */
                     } else {
-                        Toast.makeText(getActivity(), "You must record some thoughts to advance.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "You can say a little more than that! ", Toast.LENGTH_LONG).show();
                     }
 
                 }
