@@ -1,5 +1,6 @@
 package jeffpadgett.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 public class ChallengeComplete extends AppCompatActivity {
 
     TextView tvChallengeComplete;
+    int dayCompleted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +24,8 @@ public class ChallengeComplete extends AppCompatActivity {
         tvChallengeComplete = findViewById(R.id.tvCompletedDay);
 
         //set the completion day
-        int dayCompleted = getIntent().getIntExtra("DAY", 1);
+        dayCompleted = getIntent().getIntExtra("DAY", 1);
+
         tvChallengeComplete.append("" + dayCompleted);
 
 
@@ -36,4 +39,12 @@ public class ChallengeComplete extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent backIntent = new Intent(ChallengeComplete.this, MainActivity.class);
+        backIntent.putExtra("NEXTDAY", dayCompleted);
+        startActivity(backIntent);
+
+        super.onBackPressed();
+    }
 }

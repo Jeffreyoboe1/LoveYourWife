@@ -42,10 +42,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String deviceAppUID = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
-        Log.d("ANDROID_ID", deviceAppUID);
-        //c587fde39187d900
-
         Log.d("ParameterPassed", "onCreate in MainActivity called.");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -57,6 +53,15 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        // get the Intent.  Move to appropriate page to start off...
+
+        int nextDay = getIntent().getIntExtra("NEXTDAY", 0);
+
+        if (nextDay != 0) {
+            Log.d("INTTEST", ""+ nextDay);
+            mViewPager.setCurrentItem(nextDay);
+        }
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
