@@ -1,4 +1,5 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,67 +7,112 @@
 
 
 
-
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tvDayNumber"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="8sp">
+
 
             <TextView
                 android:id="@+id/tvDayNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_centerHorizontal="true"
+                android:text="Day Number"
+                android:textColor="@color/colorPrimary"
                 android:textSize="32dp"
                 android:textStyle="italic"
-                android:text="Day Number"
-                android:layout_gravity="center_horizontal"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.13999999" />
 
 
             <TextView
                 android:id="@+id/textView1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_below="@+id/tvDayNumber"
                 android:gravity="center_horizontal"
-                android:text="Description of this action of love." />
+                android:text="Description of this action of love."
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvDayNumber"
+                app:layout_constraintVertical_bias="0.25" />
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/textView1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="8dp">
 
             <android.support.design.widget.TextInputLayout
+                android:id="@+id/textInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:paddingLeft="20sp"
                 android:paddingRight="20sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView1">
+
                 <EditText
                     android:id="@+id/edtComments"
-                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="fill_horizontal"
                     android:hint="Thoughts and Comments"
                     android:inputType="textMultiLine"
-                    android:maxLength="500"/>
+                    />
             </android.support.design.widget.TextInputLayout>
 
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_gravity="end"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@drawable/button"
+                    android:paddingLeft="16sp"
+                    android:paddingRight="16sp"
+                    android:text="Complete"
 
-            <Button
-                android:id="@+id/button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/switchy" />
+
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/switchy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:text="Complete" />
-
-        </LinearLayout>
-
-    </ScrollView>
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                android:layout_margin="8sp"
+                tools:layout_editor_absoluteX="0dp"
+                />
 
 
-    <!-- TODO: Update blank fragment layout -->
 
 
-</FrameLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
