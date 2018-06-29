@@ -163,6 +163,7 @@ public class Day extends Fragment {
                     break;
                 case 2:
                     textView1.setText(R.string.day3text);
+                    break;
                 case 3:
                     textView1.setText(R.string.day4text);
                     break;
