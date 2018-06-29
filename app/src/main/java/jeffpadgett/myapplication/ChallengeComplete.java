@@ -16,6 +16,7 @@ import com.transitionseverywhere.extra.Scale;
 
 public class ChallengeComplete extends AppCompatActivity {
 
+    TextView tvCongratulations;
     TextView tvChallengeComplete;
     TextView tvInspiration;
     int dayCompleted;
@@ -29,6 +30,7 @@ public class ChallengeComplete extends AppCompatActivity {
 
         tvChallengeComplete = findViewById(R.id.tvCompletedDay);
         tvInspiration = findViewById(R.id.tvCompletedInspiration);
+        tvCongratulations = findViewById(R.id.tvCongrats);
         ViewGroup transitionContainer = findViewById(R.id.transitionCompletedContainer);
 
         //set the completion day
@@ -36,12 +38,13 @@ public class ChallengeComplete extends AppCompatActivity {
 
         tvChallengeComplete.append("" + dayCompleted);
         Transition scale = new Scale();
-        scale.setDuration(500);
+        scale.setDuration(4000);
 
         TransitionManager.beginDelayedTransition(transitionContainer, new Scale());
 
         tvChallengeComplete.setVisibility(View.VISIBLE);
         tvInspiration.setVisibility(View.VISIBLE);
+        tvCongratulations.setVisibility(View.VISIBLE);
 
 
 
