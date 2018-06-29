@@ -18,6 +18,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.transitionseverywhere.TransitionManager;
+
 import org.w3c.dom.Text;
 
 
@@ -245,6 +247,13 @@ public class Day extends Fragment {
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putInt("LASTCOMPLETED", day);
                         editor.commit();
+
+                        TransitionManager.beginDelayedTransition(container);
+                        if (textView1.getVisibility()==View.VISIBLE){
+                        textView1.setVisibility(View.GONE);}
+                        else{
+                            textView1.setVisibility(View.VISIBLE);
+                        }
 
                         Intent intent = new Intent(getActivity(), ChallengeComplete.class);
                         intent.putExtra("DAY", day);

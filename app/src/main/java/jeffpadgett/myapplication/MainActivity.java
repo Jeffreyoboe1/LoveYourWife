@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
 
-
         // get last completed day, jump to the next challenge you have to complete.
         SharedPreferences sharedPref = getSharedPreferences("LASTCOMPLETED",0);
         int lastCompleted = sharedPref.getInt("LASTCOMPLETED", 0);
