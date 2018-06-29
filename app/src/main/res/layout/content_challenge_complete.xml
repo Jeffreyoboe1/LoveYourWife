@@ -9,12 +9,12 @@
     tools:context="jeffpadgett.myapplication.ChallengeComplete"
     tools:showIn="@layout/activity_challenge_complete">
 
-
     <TextView
-        android:id="@+id/tvCompletedDay"
+        android:id="@+id/tvCongrats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Congratulations!  You completed the challenge on Day "
+        android:text="Congrats"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -24,6 +24,23 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:visibility="gone"/>
+    <TextView
+        android:id="@+id/tvCompletedDay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You have completed day "
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:visibility="gone"/>
+
+
 
     <TextView
         android:id="@+id/tvCompletedInspiration"
