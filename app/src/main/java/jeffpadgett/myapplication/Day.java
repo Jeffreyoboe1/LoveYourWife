@@ -3,25 +3,37 @@ package jeffpadgett.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.transitionseverywhere.Explode;
+import com.transitionseverywhere.Transition;
 import com.transitionseverywhere.TransitionManager;
+import com.transitionseverywhere.extra.Scale;
 
 import org.w3c.dom.Text;
 
+import static android.view.View.GONE;
 
 
 public class Day extends Fragment {
@@ -37,7 +49,9 @@ public class Day extends Fragment {
     TextView tvDayNumber;
     TextView textView1;
     EditText editText;
+    TextInputLayout edtTextLayout;
     Button btnComplete;
+    ImageView imageView;
 
     // for the locked fragment
     TextView tvLockedDayNumber;
@@ -101,6 +115,8 @@ public class Day extends Fragment {
             tvLockedDayNumber = (TextView)v.findViewById(R.id.tvLockedDayNumber);
             tvLockedCompleteOtherDay =(TextView)v.findViewById(R.id.tvCompleteOtherDay);
 
+
+
             tvLockedDayNumber.setText("Day " + day);
             tvLockedCompleteOtherDay.setText("Complete the challenge on day "  + (day-1) + " to unlock.");
             return v;
@@ -113,6 +129,8 @@ public class Day extends Fragment {
             editText = (EditText) v.findViewById(R.id.edtComments);
             tvDayNumber = (TextView) v.findViewById(R.id.tvDayNumber);
              btnComplete = (Button) v.findViewById(R.id.button);
+            edtTextLayout = v.findViewById(R.id.textInputLayout);
+            imageView = v.findViewById(R.id.imageView);
 
             tvDayNumber.setText("Day " + day);
 
@@ -249,16 +267,38 @@ public class Day extends Fragment {
                         editor.putInt("LASTCOMPLETED", day);
                         editor.commit();
 
-                        TransitionManager.beginDelayedTransition(container);
-                        if (textView1.getVisibility()==View.VISIBLE){
-                        textView1.setVisibility(View.GONE);}
-                        else{
-                            textView1.setVisibility(View.VISIBLE);
-                        }
+                        final Rect viewRectangle = new Rect();
+                        btnComplete.getGlobalVisibleRect(viewRectangle);
 
-                        Intent intent = new Intent(getActivity(), ChallengeComplete.class);
-                        intent.putExtra("DAY", day);
-                        startActivity(intent);
+                        Transition explode = new Explode();
+                        explode.setEpicenterCallback(new Transition.EpicenterCallback() {
+                            @Nullable
+                            @Override
+                            public Rect onGetEpicenter(@NonNull Transition transition) {
+                                return viewRectangle;
+                            }
+                        });
+
+                        TransitionManager.beginDelayedTransition(container, explode);
+
+                        if (textView1.getVisibility()==View.VISIBLE){
+                            edtTextLayout.setVisibility(GONE);
+                            btnComplete.setVisibility(GONE);
+                            textView1.setVisibility(GONE);
+                            tvDayNumber.setVisibility(GONE);
+                            }
+
+                        // in background it is on a timer, will execute the intent after 400ms
+                        Handler handler= new Handler();
+                        handler.postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(getActivity(), ChallengeComplete.class);
+                                 intent.putExtra("DAY", day);
+                                 startActivity(intent);
+                            }
+                        }, 400);
+
                     }
                     else {
                         Toast.makeText(getActivity(), "You can say a little more than that! ", Toast.LENGTH_LONG).show();
