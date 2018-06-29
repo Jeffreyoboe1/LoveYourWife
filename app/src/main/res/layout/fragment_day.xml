@@ -3,7 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="jeffpadgett.myapplication.Day">
+    tools:context="jeffpadgett.myapplication.Day"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:descendantFocusability="blocksDescendants"
+    android:id="@+id/scrollViewDay">
 
 
 
@@ -15,7 +19,6 @@
             android:focusableInTouchMode="true"
             android:layout_margin="20sp"
             >
-
 
             <TextView
                 android:id="@+id/tvDayNumber"
@@ -75,8 +78,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:paddingLeft="10sp"
-                android:paddingRight="10sp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView1">
@@ -91,38 +92,49 @@
                     />
             </android.support.design.widget.TextInputLayout>
 
-                <Button
-                    android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_gravity="end"
-                    android:layout_marginBottom="8dp"
-
-                    android:background="@drawable/button"
-                    android:paddingLeft="16sp"
-                    android:paddingRight="16sp"
-                    android:text="Complete"
-
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/switchy" />
-
-                <ImageView
-                    android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/holdinghands"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/switchy" />
 
             </LinearLayout>
 
 
 
+            <ImageView
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/holdinghands"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+                android:focusableInTouchMode="false"
+                android:focusable="false"/>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="end"
+                android:layout_marginBottom="8dp"
+
+                android:background="@drawable/button"
+                android:paddingLeft="16sp"
+                android:paddingRight="16sp"
+                android:text="Complete"
+                android:focusableInTouchMode="false"
+                android:focusable="false"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
 
 
-    </android.support.constraint.ConstraintLayout>
+
+
+
+
+
+
+
+
+        </android.support.constraint.ConstraintLayout>
 </ScrollView>

@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -79,6 +80,8 @@ public class Day extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this
 
         final int day = mParam1 + 1;
@@ -107,8 +110,7 @@ public class Day extends Fragment {
             textView1 = (TextView) v.findViewById(R.id.textView1);
             editText = (EditText) v.findViewById(R.id.edtComments);
             tvDayNumber = (TextView) v.findViewById(R.id.tvDayNumber);
-            btnComplete = (Button) v.findViewById(R.id.button);
-
+             btnComplete = (Button) v.findViewById(R.id.button);
 
             tvDayNumber.setText("Day " + day);
 
