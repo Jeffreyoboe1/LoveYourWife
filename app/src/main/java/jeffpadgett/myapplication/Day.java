@@ -257,8 +257,8 @@ public class Day extends Fragment {
                     // has this day been completed?
 
 
-
-                    if (editText.getText().length() > 25) {
+//TODO: change back to 25
+                    if (editText.getText().length() > -1) {
 
                         btnComplete.setText("Completed!");
 
