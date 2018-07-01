@@ -16,6 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
+        app:logo="@mipmap/ic_launcher_foreground"
+
+
 
         app:theme="@style/ToolBarStyle"
         >
