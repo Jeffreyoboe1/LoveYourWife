@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<ScrollView
+
 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/transitionCompletedContainer"
@@ -11,6 +12,13 @@
     tools:context="jeffpadgett.myapplication.ChallengeComplete"
     tools:showIn="@layout/activity_challenge_complete"
     >
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:layout_marginBottom="20dp">
+
 
     <ImageView
         android:id="@+id/imgTrophy"
@@ -80,7 +88,7 @@
         android:id="@+id/tvCompletedInspiration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Inspirational Quote or Funny saying goes here."
+        android:text="Inspirational Quote or Funny saying goes here. \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n End."
         android:textStyle="italic"
         android:textSize="20dp"
         android:gravity="center_horizontal"
@@ -109,4 +117,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvCompletedInspiration"
         android:background="@drawable/button"/>
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>
