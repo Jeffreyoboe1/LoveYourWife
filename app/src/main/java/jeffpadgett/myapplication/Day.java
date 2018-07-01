@@ -267,37 +267,10 @@ public class Day extends Fragment {
                         editor.putInt("LASTCOMPLETED", day);
                         editor.commit();
 
-                        final Rect viewRectangle = new Rect();
-                        btnComplete.getGlobalVisibleRect(viewRectangle);
+                        Intent intent = new Intent(getActivity(), ChallengeComplete.class);
+                        intent.putExtra("DAY", day);
+                        startActivity(intent);
 
-                        Transition explode = new Explode();
-                        explode.setEpicenterCallback(new Transition.EpicenterCallback() {
-                            @Nullable
-                            @Override
-                            public Rect onGetEpicenter(@NonNull Transition transition) {
-                                return viewRectangle;
-                            }
-                        });
-
-                        TransitionManager.beginDelayedTransition(container, explode);
-
-                        if (textView1.getVisibility()==View.VISIBLE){
-                            edtTextLayout.setVisibility(GONE);
-                            btnComplete.setVisibility(GONE);
-                            textView1.setVisibility(GONE);
-                            tvDayNumber.setVisibility(GONE);
-                            }
-
-                        // in background it is on a timer, will execute the intent after 400ms
-                        Handler handler= new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intent = new Intent(getActivity(), ChallengeComplete.class);
-                                 intent.putExtra("DAY", day);
-                                 startActivity(intent);
-                            }
-                        }, 400);
 
                     }
                     else {
