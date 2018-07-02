@@ -51,7 +51,7 @@
         android:fontFamily="cursive"
         android:text="Congratulations!!"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="32dp"
+        android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
 
@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:text="You Completed Day "
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Headline"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:fontFamily=""
         android:gravity="center_horizontal"
         android:textColor="@color/colorPrimary"
