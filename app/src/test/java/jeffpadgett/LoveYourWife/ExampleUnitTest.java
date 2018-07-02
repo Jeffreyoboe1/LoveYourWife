@@ -1,4 +1,4 @@
-package jeffpadgett.myapplication;
+package jeffpadgett.LoveYourWife;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package jeffpadgett.myapplication;
+package jeffpadgett.LoveYourWife;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
