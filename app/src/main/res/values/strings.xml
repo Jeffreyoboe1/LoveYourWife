@@ -37,6 +37,11 @@
     <string name="inspire1">day 1 inspiration.</string>
     <string name="inspire18">18 inspire!!!!</string>
 
+    <string name="invitation_title">LoveYourWife Invitation</string>
+    <string name="invitation_message">Hi, I\'ve been using this app called "LoveYourWife", and I recommend you check it out.</string>
+    <string name="invitation_deep_link">google.com</string>
+    <string name="invitation_cta">Click here to open</string>
+
 
 
 
