@@ -79,6 +79,7 @@ public class ChallengeComplete extends AppCompatActivity {
             case 10:
                 tvInspiration.setText("\"Honor her for all that her hands have done, " +
                         "and let her works bring her praise at the city gate.\" \n -- Proverbs 31:31");
+                break;
             case 11:
                 tvInspiration.setText("\"Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can do that.\" \n -- Martin Luther King Jr.");
                 break;
