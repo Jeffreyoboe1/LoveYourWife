@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,14 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.ToxicBakery.viewpager.transforms.ForegroundToBackgroundTransformer;
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingClientStateListener;
+import com.android.billingclient.api.BillingFlowParams;
+import com.android.billingclient.api.ConsumeResponseListener;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+import com.android.billingclient.api.SkuDetailsParams;
+import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,7 +33,10 @@ import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements Day.OnPurchaseButtonClicked{
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -32,8 +44,14 @@ public class MainActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private BillingClient mBillingClient;
     String TAG;
     int REQUEST_INVITE;
+    int mBillingClientResponseCode;
+    static int isFeatureSupported;
+    private static final String BASE_64_ENCODED_PUBLIC_KEY = "CONSTRUCT_YOUR_KEY_AND_PLACE_IT_HERE";
+
+    boolean isBillingServiceConnected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         TAG = "MainActivity";
         REQUEST_INVITE = 13254;
 
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         // Create the adapter that will return a fragment for each of the three
@@ -55,6 +74,81 @@ public class MainActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setPageTransformer(true, new ForegroundToBackgroundTransformer());
+
+        isBillingServiceConnected = false;
+
+
+
+
+        //
+        // create new Person
+
+        mBillingClient = BillingClient.newBuilder(this).setListener(new PurchasesUpdatedListener() {
+            @Override
+            public void onPurchasesUpdated(int responseCode, @Nullable List<Purchase> purchases) {
+
+                onPurchasesUpdated2(responseCode, purchases);
+
+
+            }
+        }).build();
+
+        mBillingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
+                if (billingResponseCode == BillingClient.BillingResponse.OK) {
+
+                    isFeatureSupported = mBillingClient.isFeatureSupported(BillingClient.FeatureType.IN_APP_ITEMS_ON_VR);
+                    isBillingServiceConnected = true;
+                    // The billing client is ready. You can query purchases here.
+                    Log.d(TAG, "The billing client is ready. You can query purchases here.");
+                    Toast.makeText(MainActivity.this, "The billing client is ready. You can query purchases here.", Toast.LENGTH_SHORT).show();
+
+                    // this is part of the query... Query the list of purchases...
+
+
+                    // TODO:  remove test consumptions
+                    String purchaseToken = "inapp:" + getPackageName() + ":android.test.purchased";
+                    mBillingClient.consumeAsync(purchaseToken, new ConsumeResponseListener() {
+                        @Override
+                        public void onConsumeResponse(int responseCode, String purchaseToken) {
+                            if (responseCode==0) {
+                                Log.d(TAG, "consumed android.test.purchased test.");
+                            }else {
+                                Log.d(TAG, "android.test.purchased not consumed, response code: " + responseCode);
+                            }
+                        }
+                    });
+
+
+
+                    queryPurchases();
+
+
+
+
+                } else {
+                        Log.d(TAG, "problem with billing response code is: " + billingResponseCode);
+                        Toast.makeText(MainActivity.this, "problem with billing Response Code", Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onBillingServiceDisconnected() {
+                isBillingServiceConnected = false;
+                // Try to restart the connection on the next request to
+                // Google Play by calling the startConnection() method.
+                Toast.makeText(MainActivity.this, "Try to restart the connection on the next request to\n" +
+                        "                 Google Play by calling the startConnection() method.", Toast.LENGTH_SHORT).show();
+
+             //   TODO:  Override this method, as listed here:  https://developer.android.com/google/play/billing/billing_java_kotlin#java
+
+            }
+        });
+
+
+
+
+
 
 
         // get last completed day, jump to the next challenge you have to complete.
@@ -106,6 +200,27 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void beginPurchaseFlow() {
+        Log.d(TAG, "main Activity received the click action");
+        Toast.makeText(this, "main Activity is causing this toast", Toast.LENGTH_SHORT).show();
+                //skuList.add("release_ads_and_content");
+                // skuList.add("gas");
+                //  skuList.add("android.test.purchased");
+                //  skuList.add("android.test.canceled");
+                //   skuList.add("android.test.unavailable");
+        String skuId = "android.test.purchased";
+        BillingFlowParams flowParams = BillingFlowParams.newBuilder()
+                .setSku(skuId)
+                .setType(BillingClient.SkuType.INAPP) // SkuType.SUB for subscription
+                .build();
+        int responseCode = mBillingClient.launchBillingFlow(MainActivity.this, flowParams);
+
+        Log.d(TAG, "billing flow response code for " + skuId + ": "+responseCode);
+
+
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -115,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private static final String ARG_ISBILLINGFEATURESUPPORTED = "param2";
 
         public PlaceholderFragment() {
         }
@@ -127,6 +243,7 @@ public class MainActivity extends AppCompatActivity {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putInt(ARG_ISBILLINGFEATURESUPPORTED, isFeatureSupported);
             fragment.setArguments(args);
             return fragment;
         }
@@ -160,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            return Day.newInstance(position);
+            return Day.newInstance(position, isFeatureSupported);
 
         }
 
@@ -292,5 +409,131 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+    public void queryPurchases() {
+        Log.d(TAG, "queryPurchases called");
+        Runnable queryToExecute = new Runnable() {
+            @Override
+            public void run() {
+                long time = System.currentTimeMillis();
+
+                List skuList = new ArrayList<>();
+                skuList.add("release_ads_and_content");
+                skuList.add("gas");
+                skuList.add("android.test.purchased");
+                skuList.add("android.test.canceled");
+                skuList.add("android.test.unavailable");
+                SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
+                params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
+
+                mBillingClient.querySkuDetailsAsync(params.build(),
+                        new SkuDetailsResponseListener() {
+                            @Override
+                            public void onSkuDetailsResponse(int responseCode, List skuDetailsList) {
+
+
+                                Toast.makeText(MainActivity.this, "SKu Details Response Code" + responseCode, Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "SKU details response code: " + responseCode);
+                                Toast.makeText(MainActivity.this, "SKu Details Response " + skuDetailsList.toString(), Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "SKU details response: " +skuDetailsList.toString());
+
+
+                            }
+                        });
+
+            }
+        };
+
+        executeServiceRequest(queryToExecute);
+    }
+
+    private void executeServiceRequest(Runnable runnable) {
+
+        Log.d(TAG, "execute Service Request called");
+        if (isBillingServiceConnected) {
+            Log.d(TAG, "runnable being called");
+            runnable.run();
+        } else {
+            // If billing service was disconnected, we try to reconnect 1 time.
+            // (feel free to introduce your retry policy here).
+            Log.d(TAG, "billing is disconnected, called startServiceconnection again");
+            startServiceConnection(runnable);
+        }
+    }
+
+    public void startServiceConnection(final Runnable executeOnSuccess) {
+        mBillingClient.startConnection(new BillingClientStateListener() {
+            @Override
+            public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
+                Log.d(TAG, "Setup finished. Response code: " + billingResponseCode);
+
+                if (billingResponseCode == BillingClient.BillingResponse.OK) {
+                    isBillingServiceConnected = true;
+
+                    // query purchases here...
+                    if (executeOnSuccess != null) {
+                        executeOnSuccess.run();
+                    }
+
+
+                }
+                mBillingClientResponseCode = billingResponseCode;
+            }
+
+            @Override
+            public void onBillingServiceDisconnected() {
+                isBillingServiceConnected = false;
+            }
+        });
+    }
+
+    /**
+     * Handle a result from querying of purchases and report an updated list to the listener
+     */
+    private void onQueryPurchasesFinished(Purchase.PurchasesResult result) {
+        // Have we been disposed of in the meantime? If so, or bad result code, then quit
+        if (mBillingClient == null || result.getResponseCode() != BillingClient.BillingResponse.OK) {
+            Log.w(TAG, "Billing client was null or result code (" + result.getResponseCode()
+                    + ") was bad - quitting");
+            return;
+        }
+
+        Log.d(TAG, "Query inventory was successful.");
+
+        // Update the UI and purchases inventory with new list of purchases
+
+        onPurchasesUpdated2(BillingClient.BillingResponse.OK, result.getPurchasesList());
+    }
+
+    private void onPurchasesUpdated2(int responseCode, List<Purchase> purchaseList) {
+
+        if (responseCode == BillingClient.BillingResponse.USER_CANCELED) {
+            Log.d(TAG, "user canceled the flow");
+        }
+        Toast.makeText(MainActivity.this, "Purchases updated Listener called. response code:" +  responseCode, Toast.LENGTH_LONG).show();
+        Log.d(TAG, "purchases: " + "Purchases updated Listener called. response code:" +  responseCode + "list of purchases: ");
+
+        if (purchaseList!= null) {
+            Toast.makeText(MainActivity.this, "Purchases updated Listener called. purchases are:" +  responseCode, Toast.LENGTH_LONG).show();
+            Log.d(TAG, "purchases updated listener called. Purchases are: " + purchaseList.toString());
+
+            for(Purchase purchase: purchaseList) {
+                Log.d(TAG, "original json: " + purchase.getOriginalJson());
+                Log.d(TAG, "order id: " + purchase.getOrderId());
+                Log.d(TAG, "signature: " + purchase.getSignature());
+                Log.d(TAG, "package name: " + purchase.getPackageName());
+                Log.d(TAG, "purchase Token: " + purchase.getPurchaseToken());
+                Log.d(TAG, "purchase Sku: " + purchase.getSku());
+                Log.d(TAG, "purchase time: " + purchase.getPurchaseTime());
+                Log.d(TAG, "purchase to string: " + purchase.toString());
+            }
+
+        }
+
+    }
+
+
+
+
 
 }

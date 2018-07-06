@@ -1,5 +1,6 @@
 package jeffpadgett.LoveYourWife;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,12 +17,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.billingclient.api.BillingClient;
 
-public class Day extends Fragment {
+
+public class Day extends  Fragment {
+
+    OnPurchaseButtonClicked mCallback;
+
+    // Container Activity must implement this interface
+    public interface OnPurchaseButtonClicked {
+        public void beginPurchaseFlow();
+    }
+
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_ISBILLINGFEATURESUPPORTED = "param2";
+    private static final String ARG_BILLING_CLIENT = "param3";
     private static final String TAG = "Day.java";
     private static String sharedPrefKey;
     private static String sharedPrefPreviousKey;
@@ -33,14 +46,17 @@ public class Day extends Fragment {
     TextInputLayout edtTextLayout;
     Button btnComplete;
     ImageView imageView;
+    Boolean contentPurchased;
+
 
     // for the locked fragment
     TextView tvLockedDayNumber;
     TextView tvLocked;
     TextView tvLockedCompleteOtherDay;
-
+    Button btnPurchase;
     // TODO: Rename and change types of parameters
     private int mParam1;
+    private int isBillingFeatureSupported;
 
 
     //private OnFragmentInteractionListener mListener;
@@ -57,10 +73,11 @@ public class Day extends Fragment {
      * @return A new instance of fragment Day.
      */
     // TODO: Rename and change types and number of parameters
-    public static Day newInstance(int param1) {
+    public static Day newInstance(int param1, int isBillingFeatureSupported) {
         Day fragment = new Day();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
+        args.putInt(ARG_ISBILLINGFEATURESUPPORTED, isBillingFeatureSupported);
         fragment.setArguments(args);
         return fragment;
     }
@@ -70,6 +87,7 @@ public class Day extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getInt(ARG_PARAM1, 0);
+            isBillingFeatureSupported = getArguments().getInt(ARG_ISBILLINGFEATURESUPPORTED, -1);
             Log.d(TAG, "mParam in onCreate is " +mParam1);
         }
     }
@@ -81,6 +99,9 @@ public class Day extends Fragment {
 
         // Inflate the layout for this
 
+        // TODO: check to see if the content is purchase
+        contentPurchased = false;
+
         final int day = mParam1 + 1;
         sharedPrefPreviousKey = (mParam1-1) + "";
 
@@ -88,20 +109,78 @@ public class Day extends Fragment {
         final SharedPreferences sharedPreviousCompleted = getActivity().getSharedPreferences("COMPLETED", Context.MODE_PRIVATE);
         final Boolean previousDayCompleted = sharedPreviousCompleted.getBoolean(sharedPrefPreviousKey, false);
 
-        //if not first challenge or 2nd challenge and previous day is not completed
-        if (mParam1!=0 && mParam1!=1 && mParam1 !=2 && previousDayCompleted == false) {
+
+        // if you have not purchased the rest of the content:
+
+
+
+        // if on day 7-30, and content not purchased, display unpurchased
+        // if on day 7-30, content purchased, then display either the lock or the app
+        // if on day 1-6, display either the lock or the app.
+
+
+        //if not first or 2nd challenge, and previous day is not completed
+        if (mParam1>6 && contentPurchased == false) {
+            View v = inflater.inflate(R.layout.fragment_unpurchased, container, false);
+
+            tvLocked = v.findViewById(R.id.tvLocked);
+            tvLockedDayNumber = v.findViewById(R.id.tvLockedDayNumber);
+            btnPurchase = v.findViewById(R.id.btnPurchase);
+            tvLockedDayNumber.setText("Day " + day);
+
+            btnPurchase.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Log.d(TAG, "is billing feature supported = " + isBillingFeatureSupported);
+                    if (isBillingFeatureSupported == BillingClient.BillingResponse.FEATURE_NOT_SUPPORTED) {
+
+
+                    } else {
+                        Log.d(TAG, "billing supported: " +isBillingFeatureSupported);
+                        Toast.makeText(getActivity(),"feature supported", Toast.LENGTH_LONG).show();
+                        mCallback.beginPurchaseFlow();
+
+
+                        // here we can start the purchase flow I hope.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    }
+
+
+                }
+            });
+
+
+
+
+
+            return v;
+        }
+        else if (mParam1!=0 && mParam1!=1 && previousDayCompleted == false) {
             View v = inflater.inflate(R.layout.fragment_locked, container, false);
 
             tvLocked = (TextView)v.findViewById(R.id.tvLocked);
             tvLockedDayNumber = (TextView)v.findViewById(R.id.tvLockedDayNumber);
             tvLockedCompleteOtherDay =(TextView)v.findViewById(R.id.tvCompleteOtherDay);
 
-
-
             tvLockedDayNumber.setText("Day " + day);
             tvLockedCompleteOtherDay.setText("Complete the challenge on day "  + (day-1) + " to unlock.");
             return v;
-        } else {
+        } else {  // if on day 1, day 2, or if previous challenge is completed, and content is purchased
 
 
             View v = inflater.inflate(R.layout.fragment_day, container, false);
@@ -348,4 +427,27 @@ public class Day extends Fragment {
     */
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+
+        Activity a;
+        if (context instanceof Activity){
+            a=(Activity) context;
+
+            try {
+                mCallback = (OnPurchaseButtonClicked) a;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(a.toString()
+                        + " must implement OnHeadlineSelectedListener");
+            }
+
+
+
+        }
+
+    }
 }
