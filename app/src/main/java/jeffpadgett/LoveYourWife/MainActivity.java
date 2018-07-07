@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
@@ -108,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                     // this is part of the query... Query the list of purchases...
 
 
-                    // TODO:  remove test consumptions
+                   // TODO:  remove test consumptions
                     String purchaseToken = "inapp:" + getPackageName() + ":android.test.purchased";
                     mBillingClient.consumeAsync(purchaseToken, new ConsumeResponseListener() {
                         @Override
@@ -120,6 +121,8 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                             }
                         }
                     });
+
+
 
 
                     // here we determine if the user has purchased the rest of the content, days 8-30.
@@ -202,14 +205,16 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
     }
 
     @Override
-    public void beginPurchaseFlow() {
+    public void beginPurchaseFlow(int position) {
         Log.d(TAG, "main Activity received the click action");
-        Toast.makeText(this, "main Activity is causing this toast", Toast.LENGTH_SHORT).show();
+
                 //skuList.add("release_ads_and_content");
                 // skuList.add("gas");
                 //  skuList.add("android.test.purchased");
                 //  skuList.add("android.test.canceled");
                 //   skuList.add("android.test.unavailable");
+        //TODO:  when testing, change skuID to release_ads_and_content
+
         String skuId = "android.test.purchased";
         BillingFlowParams flowParams = BillingFlowParams.newBuilder()
                 .setSku(skuId)
@@ -275,12 +280,14 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
             super(fm);
         }
 
+
+
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
 
-            return Day.newInstance(position, isFeatureSupported);
+            return Day.newInstance(position, isFeatureSupported, mActivityContentPurchased);
 
         }
 
@@ -535,12 +542,18 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 switch (purchase.getSku()) {
                     case "release_ads_and_content":
                         // TODO: update the UI.
+                        Log.d(TAG, "release_ads_and_content has already been purchased.");
+                        Log.d(TAG, "update the UI with appropriate arguments by changing boolean");
+                        Log.d(TAG, "mActivityContentPurchased = " +mActivityContentPurchased);
                         mActivityContentPurchased = true; // use this to update the UI.
+                        Log.d(TAG, "now mActivityContentPurchased = " +mActivityContentPurchased);
                         break;
                     case "android.test.purchased":
                         Log.d(TAG, "android.test.purchased has already been purchased.");
-                        Log.d(TAG, "update the UI with appropriate arguments");
+                        Log.d(TAG, "update the UI with appropriate arguments by changing boolean");
+                        Log.d(TAG, "mActivityContentPurchased = " +mActivityContentPurchased);
                         mActivityContentPurchased = true;
+                        Log.d(TAG, "now mActivityContentPurchased = " +mActivityContentPurchased);
                         break;
                 }
             }
@@ -548,7 +561,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
         }
 
-        onPurchasesUpdated2(BillingClient.BillingResponse.OK, result.getPurchasesList());
+      //  onPurchasesUpdated2(BillingClient.BillingResponse.OK, result.getPurchasesList());
     }
 
     private void onPurchasesUpdated2(int responseCode, List<Purchase> purchaseList) {
@@ -561,7 +574,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
         if (purchaseList!= null) {
             Toast.makeText(MainActivity.this, "Purchases updated called. response code:" +  responseCode, Toast.LENGTH_LONG).show();
-            Log.d(TAG, "purchases called. Purchases List: " + purchaseList.toString());
+            Log.d(TAG, "purchases updated called. Purchases List: " + purchaseList.toString());
 
             for(Purchase purchase: purchaseList) {
 
@@ -570,10 +583,21 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 //  skuList.add("android.test.purchased");
                 //  skuList.add("android.test.canceled");
                 //   skuList.add("android.test.unavailable");
+                Intent purchaseSuccess = new Intent(MainActivity.this, ChallengeComplete.class);
                 switch (purchase.getSku()) {
                     case "release_ads_and_content":
-
+                        Log.d(TAG, "purchased release_ads_and content");
+                        Log.d(TAG, "jumping to congrats activity");
+                        startActivity(purchaseSuccess);
                         // TODO: add the token, or a boolean, to shared prefs... so then this device knows it has been purchased..
+                        break;
+                    case "android.test.purchased":
+                        Log.d(TAG, "purchased android.test.purchased");
+                        Log.d(TAG, "jumping to congrats activity");
+                        startActivity(purchaseSuccess);
+                        // TODO: add the token, or a boolean, to shared prefs... so then this device knows it has been purchased..
+                        break;
+
 
                 }
                 Log.d(TAG, "original json: " + purchase.getOriginalJson());

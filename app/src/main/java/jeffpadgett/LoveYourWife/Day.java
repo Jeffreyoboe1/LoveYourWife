@@ -26,7 +26,7 @@ public class Day extends  Fragment {
 
     // Container Activity must implement this interface
     public interface OnPurchaseButtonClicked {
-        public void beginPurchaseFlow();
+        public void beginPurchaseFlow(int position);
     }
 
 
@@ -34,7 +34,7 @@ public class Day extends  Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_ISBILLINGFEATURESUPPORTED = "param2";
-    private static final String ARG_BILLING_CLIENT = "param3";
+    private static final String ARG_CONTENT_PURCHASED= "param3";
     private static final String TAG = "Day.java";
     private static String sharedPrefKey;
     private static String sharedPrefPreviousKey;
@@ -46,7 +46,7 @@ public class Day extends  Fragment {
     TextInputLayout edtTextLayout;
     Button btnComplete;
     ImageView imageView;
-    Boolean contentPurchased;
+
 
 
     // for the locked fragment
@@ -57,6 +57,7 @@ public class Day extends  Fragment {
     // TODO: Rename and change types of parameters
     private int mParam1;
     private int isBillingFeatureSupported;
+    Boolean contentPurchased;
 
 
     //private OnFragmentInteractionListener mListener;
@@ -73,11 +74,12 @@ public class Day extends  Fragment {
      * @return A new instance of fragment Day.
      */
     // TODO: Rename and change types and number of parameters
-    public static Day newInstance(int param1, int isBillingFeatureSupported) {
+    public static Day newInstance(int param1, int isBillingFeatureSupported, boolean contentPurchased) {
         Day fragment = new Day();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
         args.putInt(ARG_ISBILLINGFEATURESUPPORTED, isBillingFeatureSupported);
+        args.putBoolean(ARG_CONTENT_PURCHASED, contentPurchased);
         fragment.setArguments(args);
         return fragment;
     }
@@ -88,7 +90,9 @@ public class Day extends  Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getInt(ARG_PARAM1, 0);
             isBillingFeatureSupported = getArguments().getInt(ARG_ISBILLINGFEATURESUPPORTED, -1);
+            contentPurchased = getArguments().getBoolean(ARG_CONTENT_PURCHASED, false);
             Log.d(TAG, "mParam in onCreate is " +mParam1);
+            Log.d(TAG, "contentPurchased in onCreate of Day Frag is: " + contentPurchased);
         }
     }
 
@@ -99,8 +103,8 @@ public class Day extends  Fragment {
 
         // Inflate the layout for this
 
-        // TODO: check to see if the content is purchase
-        contentPurchased = false;
+        // TODO: check to see if the content is purchase - momentarily created as an argument
+       // contentPurchased = false;
 
         final int day = mParam1 + 1;
         sharedPrefPreviousKey = (mParam1-1) + "";
@@ -139,7 +143,7 @@ public class Day extends  Fragment {
                     } else {
                         Log.d(TAG, "billing supported: " +isBillingFeatureSupported);
                         Toast.makeText(getActivity(),"feature supported", Toast.LENGTH_LONG).show();
-                        mCallback.beginPurchaseFlow();
+                        mCallback.beginPurchaseFlow(mParam1);
 
 
                         // here we can start the purchase flow I hope.
