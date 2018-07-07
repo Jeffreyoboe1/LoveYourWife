@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
     private static final String BASE_64_ENCODED_PUBLIC_KEY = "CONSTRUCT_YOUR_KEY_AND_PLACE_IT_HERE";
 
     boolean isBillingServiceConnected;
+    boolean mActivityContentPurchased;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                     });
 
 
-
+                    // here we determine if the user has purchased the rest of the content, days 8-30.
                     queryPurchases();
 
 
@@ -217,6 +218,8 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         int responseCode = mBillingClient.launchBillingFlow(MainActivity.this, flowParams);
 
         Log.d(TAG, "billing flow response code for " + skuId + ": "+responseCode);
+
+        // this, when finished, even if user cancels the flow, will trigger "onPurchasesUpdated, which calls onPurchasesUpdated2();
 
 
     }
@@ -411,12 +414,22 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
     }
 
     public void queryPurchases() {
+
+        // creates a runnable background thread that queries google play store to see what has been purchased.
         Log.d(TAG, "queryPurchases called");
         Runnable queryToExecute = new Runnable() {
             @Override
             public void run() {
                 long time = System.currentTimeMillis();
 
+                // this will return what purchases you have made with the app.  It's pretty quick, apparently works with cache.
+                // if cache is cleared, it may take a while.
+
+                Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
+                onQueryPurchasesFinished(purchasesResult);
+
+
+                //TODO:  consider moving this to get prices at the beginning, and updating the UI with the prices later?
                 List skuList = new ArrayList<>();
                 skuList.add("release_ads_and_content");
                 skuList.add("gas");
@@ -426,16 +439,25 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
                 params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
 
+                // make a query on the items listed in skuList above.
                 mBillingClient.querySkuDetailsAsync(params.build(),
                         new SkuDetailsResponseListener() {
                             @Override
                             public void onSkuDetailsResponse(int responseCode, List skuDetailsList) {
 
+                                // this just gives the details about all the items that are listed in the playstore for this app.
+                                // It does not say whether or not those items are purchased.  I think.
+
 
                                 Toast.makeText(MainActivity.this, "SKu Details Response Code" + responseCode, Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "SKU details response code: " + responseCode);
                                 Toast.makeText(MainActivity.this, "SKu Details Response " + skuDetailsList.toString(), Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, "SKU details response: " +skuDetailsList.toString());
+                                Log.d(TAG, "SKU details response: " + skuDetailsList.toString());
+
+                                //TODO:  Here, I can get the price of the content and update the UI.
+                                // This is important because the price will be different based on nationalities.
+
+
 
 
                             }
@@ -491,6 +513,9 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
      * Handle a result from querying of purchases and report an updated list to the listener
      */
     private void onQueryPurchasesFinished(Purchase.PurchasesResult result) {
+
+        Log.d(TAG, "onQueryPurchasesFinished is called. result is: " +result.toString());
+
         // Have we been disposed of in the meantime? If so, or bad result code, then quit
         if (mBillingClient == null || result.getResponseCode() != BillingClient.BillingResponse.OK) {
             Log.w(TAG, "Billing client was null or result code (" + result.getResponseCode()
@@ -500,7 +525,28 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
         Log.d(TAG, "Query inventory was successful.");
 
-        // Update the UI and purchases inventory with new list of purchases
+        // TODO: Update the UI based on whether or not the rest of content has been purchased.
+
+        List<Purchase> innerPurchaseList = result.getPurchasesList();
+
+        if (innerPurchaseList!=null) {
+
+            for (Purchase purchase: innerPurchaseList) {
+                switch (purchase.getSku()) {
+                    case "release_ads_and_content":
+                        // TODO: update the UI.
+                        mActivityContentPurchased = true; // use this to update the UI.
+                        break;
+                    case "android.test.purchased":
+                        Log.d(TAG, "android.test.purchased has already been purchased.");
+                        Log.d(TAG, "update the UI with appropriate arguments");
+                        mActivityContentPurchased = true;
+                        break;
+                }
+            }
+
+
+        }
 
         onPurchasesUpdated2(BillingClient.BillingResponse.OK, result.getPurchasesList());
     }
@@ -510,14 +556,26 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         if (responseCode == BillingClient.BillingResponse.USER_CANCELED) {
             Log.d(TAG, "user canceled the flow");
         }
-        Toast.makeText(MainActivity.this, "Purchases updated Listener called. response code:" +  responseCode, Toast.LENGTH_LONG).show();
-        Log.d(TAG, "purchases: " + "Purchases updated Listener called. response code:" +  responseCode + "list of purchases: ");
+        Toast.makeText(MainActivity.this, "Purchases updated called. response code:" +  responseCode, Toast.LENGTH_LONG).show();
+        Log.d(TAG, "Purchases updated called. response code:" +  responseCode);
 
         if (purchaseList!= null) {
-            Toast.makeText(MainActivity.this, "Purchases updated Listener called. purchases are:" +  responseCode, Toast.LENGTH_LONG).show();
-            Log.d(TAG, "purchases updated listener called. Purchases are: " + purchaseList.toString());
+            Toast.makeText(MainActivity.this, "Purchases updated called. response code:" +  responseCode, Toast.LENGTH_LONG).show();
+            Log.d(TAG, "purchases called. Purchases List: " + purchaseList.toString());
 
             for(Purchase purchase: purchaseList) {
+
+                //skuList.add("release_ads_and_content");
+                // skuList.add("gas");
+                //  skuList.add("android.test.purchased");
+                //  skuList.add("android.test.canceled");
+                //   skuList.add("android.test.unavailable");
+                switch (purchase.getSku()) {
+                    case "release_ads_and_content":
+
+                        // TODO: add the token, or a boolean, to shared prefs... so then this device knows it has been purchased..
+
+                }
                 Log.d(TAG, "original json: " + purchase.getOriginalJson());
                 Log.d(TAG, "order id: " + purchase.getOrderId());
                 Log.d(TAG, "signature: " + purchase.getSignature());
@@ -534,6 +592,10 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
 
 
-
-
+    @Override
+    protected void onResume() {
+        Log.d(TAG, "onResume called.");
+        queryPurchases();
+        super.onResume();
+    }
 }
