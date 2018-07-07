@@ -6,7 +6,8 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <TextView
             android:id="@+id/tvLockedDayNumber"
@@ -42,7 +43,7 @@
             android:id="@+id/tvCompleteOtherDay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Purchase the rest of the content to view this page."
+            android:text="Unlock Days 7-30 and remove all ads from the app."
             android:textSize="24sp"
             android:gravity="center_horizontal"
             android:layout_marginTop="0dp"
@@ -62,23 +63,12 @@
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Button"
+            android:background="@drawable/button"
+            android:text="Unlock"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvCompleteOtherDay" />
 
-        <TextView
-            android:id="@+id/tvBtnExplanation"
-            android:layout_width="226dp"
-            android:layout_height="19dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Clicking this button will release all the remaining challenges and remove ads from the app."
 
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnPurchase" />
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

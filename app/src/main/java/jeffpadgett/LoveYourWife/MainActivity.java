@@ -583,7 +583,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 //  skuList.add("android.test.purchased");
                 //  skuList.add("android.test.canceled");
                 //   skuList.add("android.test.unavailable");
-                Intent purchaseSuccess = new Intent(MainActivity.this, ChallengeComplete.class);
+                Intent purchaseSuccess = new Intent(MainActivity.this, ThankYou.class);
                 switch (purchase.getSku()) {
                     case "release_ads_and_content":
                         Log.d(TAG, "purchased release_ads_and content");

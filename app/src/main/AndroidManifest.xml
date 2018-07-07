@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jeffpadgett.LoveYourWife">
 
-    <uses-permission android:name="com.android.vending.BILLING"/>
+    <uses-permission android:name="com.android.vending.BILLING" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="jeffpadgett.LoveYourWife.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize">
@@ -22,11 +23,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="jeffpadgett.LoveYourWife.ChallengeComplete"
+            android:name=".ChallengeComplete"
             android:label="@string/title_activity_challenge_complete"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName="jeffpadgett.LoveYourWife.MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ThankYou"></activity>
     </application>
 
 </manifest>
