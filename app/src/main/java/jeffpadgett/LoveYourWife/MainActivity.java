@@ -68,16 +68,14 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // Create the adapter that will return a fragment for each of the three
-        // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
-        // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setPageTransformer(true, new ForegroundToBackgroundTransformer());
 
         isBillingServiceConnected = false;
+
+        // see if the content has been purchased before and saved into sharedPref.
+        SharedPreferences sharedPref = getSharedPreferences("CONTENTPURCHASED", 0);
+        mActivityContentPurchased = sharedPref.getBoolean("CONTENTPURCHASED", false);
+
 
 
 
@@ -104,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                     isBillingServiceConnected = true;
                     // The billing client is ready. You can query purchases here.
                     Log.d(TAG, "The billing client is ready. You can query purchases here.");
-                    Toast.makeText(MainActivity.this, "The billing client is ready. You can query purchases here.", Toast.LENGTH_SHORT).show();
 
                     // this is part of the query... Query the list of purchases...
 
@@ -150,14 +147,21 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         });
 
 
+     // Create the adapter that will return a fragment for each of the three
+        // primary sections of the activity.
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
+        // Set up the ViewPager with the sections adapter.
+        mViewPager = (ViewPager) findViewById(R.id.container);
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setPageTransformer(true, new ForegroundToBackgroundTransformer());
 
 
 
 
         // get last completed day, jump to the next challenge you have to complete.
-        SharedPreferences sharedPref = getSharedPreferences("LASTCOMPLETED",0);
-        int lastCompleted = sharedPref.getInt("LASTCOMPLETED", 0);
+        SharedPreferences sharedPreferences = getSharedPreferences("LASTCOMPLETED",0);
+        int lastCompleted = sharedPreferences.getInt("LASTCOMPLETED", 0);
 
         if (lastCompleted != 0 ){
             Log.d("LASTCOMPLETED", lastCompleted + "");
@@ -286,6 +290,8 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
+
+
 
             return Day.newInstance(position, isFeatureSupported, mActivityContentPurchased);
 
@@ -436,6 +442,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 onQueryPurchasesFinished(purchasesResult);
 
 
+                /*
                 //TODO:  consider moving this to get prices at the beginning, and updating the UI with the prices later?
                 List skuList = new ArrayList<>();
                 skuList.add("release_ads_and_content");
@@ -455,11 +462,9 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                                 // this just gives the details about all the items that are listed in the playstore for this app.
                                 // It does not say whether or not those items are purchased.  I think.
 
-
-                                Toast.makeText(MainActivity.this, "SKu Details Response Code" + responseCode, Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "SKU details response code: " + responseCode);
-                                Toast.makeText(MainActivity.this, "SKu Details Response " + skuDetailsList.toString(), Toast.LENGTH_SHORT).show();
                                 Log.d(TAG, "SKU details response: " + skuDetailsList.toString());
+
 
                                 //TODO:  Here, I can get the price of the content and update the UI.
                                 // This is important because the price will be different based on nationalities.
@@ -469,6 +474,8 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
                             }
                         });
+
+                        */
 
             }
         };
@@ -567,13 +574,19 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
     private void onPurchasesUpdated2(int responseCode, List<Purchase> purchaseList) {
 
         if (responseCode == BillingClient.BillingResponse.USER_CANCELED) {
-            Log.d(TAG, "user canceled the flow");
+            Log.d(TAG, "user canceled the purchase flow");
+            return;
         }
-        Toast.makeText(MainActivity.this, "Purchases updated called. response code:" +  responseCode, Toast.LENGTH_LONG).show();
+
         Log.d(TAG, "Purchases updated called. response code:" +  responseCode);
 
+        if (purchaseList == null) {
+            Log.d(TAG, "no purchases have been made.  Perhaps this is new user. Resetting Content Purchased to false.");
+            mActivityContentPurchased = false;
+        }
+
         if (purchaseList!= null) {
-            Toast.makeText(MainActivity.this, "Purchases updated called. response code:" +  responseCode, Toast.LENGTH_LONG).show();
+
             Log.d(TAG, "purchases updated called. Purchases List: " + purchaseList.toString());
 
             for(Purchase purchase: purchaseList) {
@@ -584,16 +597,24 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 //  skuList.add("android.test.canceled");
                 //   skuList.add("android.test.unavailable");
                 Intent purchaseSuccess = new Intent(MainActivity.this, ThankYou.class);
+                SharedPreferences sharedPreferences = getSharedPreferences("CONTENTPURCHASED", 0);
                 switch (purchase.getSku()) {
                     case "release_ads_and_content":
                         Log.d(TAG, "purchased release_ads_and content");
                         Log.d(TAG, "jumping to congrats activity");
+
+
+                        sharedPreferences.edit().putBoolean("CONTENTPURCHASED", true).commit();
+
                         startActivity(purchaseSuccess);
                         // TODO: add the token, or a boolean, to shared prefs... so then this device knows it has been purchased..
                         break;
                     case "android.test.purchased":
                         Log.d(TAG, "purchased android.test.purchased");
                         Log.d(TAG, "jumping to congrats activity");
+
+                        sharedPreferences.edit().putBoolean("CONTENTPURCHASED", true).commit();
+
                         startActivity(purchaseSuccess);
                         // TODO: add the token, or a boolean, to shared prefs... so then this device knows it has been purchased..
                         break;
