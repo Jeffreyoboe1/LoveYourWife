@@ -50,6 +50,10 @@ public class TrophyPage extends AppCompatActivity {
                 Intent intent2 = new Intent(TrophyPage.this, MainActivity.class);intent2.putExtra("NEXTDAY", 29);
                 startActivity(intent2);
                 break;
+            case R.id.action_jumpCurrent:
+                Intent intent3 = new Intent(TrophyPage.this, MainActivity.class);
+                startActivity(intent3);
+                break;
             case R.id.action_trophyPage:
                 Intent trophyIntent = new Intent(TrophyPage.this, TrophyPage.class);
                 startActivity(trophyIntent);

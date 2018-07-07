@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
     private BillingClient mBillingClient;
     String TAG;
     int REQUEST_INVITE;
+    int lastCompleted;
     int mBillingClientResponseCode;
     static int isFeatureSupported;
     private static final String BASE_64_ENCODED_PUBLIC_KEY = "CONSTRUCT_YOUR_KEY_AND_PLACE_IT_HERE";
@@ -161,7 +162,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
         // get last completed day, jump to the next challenge you have to complete.
         SharedPreferences sharedPreferences = getSharedPreferences("LASTCOMPLETED",0);
-        int lastCompleted = sharedPreferences.getInt("LASTCOMPLETED", 0);
+        lastCompleted = sharedPreferences.getInt("LASTCOMPLETED", 0);
 
         if (lastCompleted != 0 ){
             Log.d("LASTCOMPLETED", lastCompleted + "");
@@ -207,6 +208,9 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 break;
             case R.id.action_jumpEnd:
                 mViewPager.setCurrentItem(29);
+                break;
+            case R.id.action_jumpCurrent:
+                mViewPager.setCurrentItem(lastCompleted);
                 break;
             case R.id.action_trophyPage:
                 Intent intent = new Intent(MainActivity.this, TrophyPage.class);

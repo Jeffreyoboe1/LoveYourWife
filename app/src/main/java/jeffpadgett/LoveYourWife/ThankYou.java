@@ -68,8 +68,13 @@ public class ThankYou extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.action_jumpEnd:
-                Intent intent2 = new Intent(ThankYou.this, MainActivity.class);intent2.putExtra("NEXTDAY", 29);
+                Intent intent2 = new Intent(ThankYou.this, MainActivity.class);
+                intent2.putExtra("NEXTDAY", 29);
                 startActivity(intent2);
+                break;
+            case R.id.action_jumpCurrent:
+                Intent intent3 = new Intent(ThankYou.this, MainActivity.class);
+                startActivity(intent3);
                 break;
             case R.id.action_trophyPage:
                 Intent trophyIntent = new Intent(ThankYou.this, TrophyPage.class);

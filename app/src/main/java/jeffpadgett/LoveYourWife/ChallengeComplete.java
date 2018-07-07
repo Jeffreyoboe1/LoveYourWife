@@ -2,6 +2,7 @@ package jeffpadgett.LoveYourWife;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -223,8 +224,13 @@ public class ChallengeComplete extends AppCompatActivity {
                 startActivity(intent);
                 break;
             case R.id.action_jumpEnd:
-                Intent intent2 = new Intent(ChallengeComplete.this, MainActivity.class);intent2.putExtra("NEXTDAY", 29);
+                Intent intent2 = new Intent(ChallengeComplete.this, MainActivity.class);
+                intent2.putExtra("NEXTDAY", 29);
                 startActivity(intent2);
+                break;
+            case R.id.action_jumpCurrent:
+                Intent intent3 = new Intent(ChallengeComplete.this, MainActivity.class);
+                startActivity(intent3);
                 break;
             case R.id.action_trophyPage:
                 Intent trophyIntent = new Intent(ChallengeComplete.this, TrophyPage.class);
