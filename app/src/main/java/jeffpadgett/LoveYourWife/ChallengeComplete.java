@@ -1,7 +1,10 @@
 package jeffpadgett.LoveYourWife;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,6 +15,13 @@ import android.view.animation.ScaleAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.dynamiclinks.DynamicLink;
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
+import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
 
 // practice push
@@ -205,8 +215,25 @@ public class ChallengeComplete extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+
+        switch (id){
+            case R.id.action_jumpBeginning:
+                Intent intent = new Intent(ChallengeComplete.this, MainActivity.class);
+                intent.putExtra("NEXTDAY", 123);
+                startActivity(intent);
+                break;
+            case R.id.action_jumpEnd:
+                Intent intent2 = new Intent(ChallengeComplete.this, MainActivity.class);intent2.putExtra("NEXTDAY", 29);
+                startActivity(intent2);
+                break;
+            case R.id.action_trophyPage:
+                Intent trophyIntent = new Intent(ChallengeComplete.this, TrophyPage.class);
+                startActivity(trophyIntent);
+                break;
+            case R.id.action_share_app:
+                onInviteClicked();
+                break;
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -231,4 +258,48 @@ public class ChallengeComplete extends AppCompatActivity {
         anim.setDuration(1000);
         v.startAnimation(anim);
     }
+
+    public void onInviteClicked() {
+
+
+        Task<ShortDynamicLink> shortTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
+                .setLink(Uri.parse("https://www.google.com/")) // put website here
+                .setDynamicLinkDomain("loveyourwife.page.link")
+                // Open links with this app on Android
+                .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
+                .buildShortDynamicLink().addOnCompleteListener(new OnCompleteListener<ShortDynamicLink>() {
+                    @Override
+                    public void onComplete(@NonNull Task<ShortDynamicLink> task) {
+                        if (task.isSuccessful()) {
+                            // Short link created
+                            Uri shortLink = task.getResult().getShortLink();
+                            Uri flowchartLink = task.getResult().getPreviewLink();
+
+                            String dynamicString = shortLink.toString();
+
+
+                            String msg = "Hi, I have been using this app called LoveYourWife.  It can help improve your marriage. " + dynamicString;
+                            String subject = "Love Your Wife";
+                            String msgHtml = String.format("<p>Hi!  I've been using this app called Love Your Wife, and wanted to recommend it to you.  "
+                                    + "It has great ideas to improve your marriage and love your wife better. " +
+                                    " Click on this link to check it out. " + "<a href=\"%s\">Love Your Wife</a>!</p>", dynamicString);
+
+                            Intent sendIntent = new Intent();
+                            sendIntent.setAction(Intent.ACTION_SEND);
+                            sendIntent.putExtra(Intent.EXTRA_TEXT, msg);
+                            sendIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+                            sendIntent.putExtra(Intent.EXTRA_HTML_TEXT, msgHtml);
+                            sendIntent.setType("text/plain");
+                            startActivity(Intent.createChooser(sendIntent, "Recommend Love Your Wife to a friend"));
+
+                        } else {
+                            // Error
+                            // ...
+                            Toast.makeText(ChallengeComplete.this, "error " + task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+
 }

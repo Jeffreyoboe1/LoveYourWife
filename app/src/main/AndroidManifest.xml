@@ -26,8 +26,9 @@
             android:name=".ChallengeComplete"
             android:label="@string/title_activity_challenge_complete"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".ThankYou"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ThankYou" />
+        <activity android:name=".TrophyPage"></activity>
     </application>
 
 </manifest>

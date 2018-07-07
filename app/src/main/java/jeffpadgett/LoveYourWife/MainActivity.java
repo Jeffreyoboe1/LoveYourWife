@@ -168,10 +168,12 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
             mViewPager.setCurrentItem(lastCompleted);  // do not need + 1, because pager starts at 0.
         }
 
-        // get the Intent, if coming from Challenge Completed Page.  Move to appropriate next page to start off...
+        // get the Intent, if coming from Challenge Completed Page or the Trophy Page.  Move to appropriate next page to start off...
         int nextDay = getIntent().getIntExtra("NEXTDAY", 0);
 
-        if (nextDay != 0) {
+        if (nextDay == 123) {
+            mViewPager.setCurrentItem(0);
+        } else if (nextDay != 0) {
             Log.d("INTTEST", ""+ nextDay);
             mViewPager.setCurrentItem(nextDay);  // do not need + 1, because pager starts at 0.
         }
@@ -195,13 +197,21 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
-        if (id == R.id.action_share_app) {
-            onInviteClicked();
-
+        switch (id){
+            case R.id.action_share_app:
+                onInviteClicked();
+                break;
+            case R.id.action_jumpBeginning:
+                mViewPager.setCurrentItem(0);
+                break;
+            case R.id.action_jumpEnd:
+                mViewPager.setCurrentItem(29);
+                break;
+            case R.id.action_trophyPage:
+                Intent intent = new Intent(MainActivity.this, TrophyPage.class);
+                startActivity(intent);
+                break;
 
         }
 
@@ -374,7 +384,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         }
     }
 
-    private void onInviteClicked() {
+    public void onInviteClicked() {
 
 
 
