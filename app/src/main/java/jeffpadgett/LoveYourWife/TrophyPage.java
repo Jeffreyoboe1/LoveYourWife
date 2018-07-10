@@ -85,17 +85,17 @@ public class TrophyPage extends AppCompatActivity {
         stringArray.add(getString(R.string.inspire29));
         stringArray.add(getString(R.string.inspire30));
 
-        //Log.d(TAG, "string Array after adding 30 strings: " + stringArray.toString());
+        Log.d(TAG, "string Array after adding 30 strings: " + stringArray.toString());
         SharedPreferences sharedPreferences = getSharedPreferences("LASTCOMPLETED", 0);
         lastCompletedChallenge = sharedPreferences.getInt("LASTCOMPLETED", 0);
 
         int removeThisPositionAndLater = lastCompletedChallenge;
 
-        //Log.d(TAG, "remove this position and later: " + removeThisPositionAndLater);
+        Log.d(TAG, "remove this position and later: " + removeThisPositionAndLater);
 
         stringArray.subList(removeThisPositionAndLater, stringArray.size()).clear();
 
-        //Log.d(TAG, "string Array after removing strings: " + stringArray.toString());
+        Log.d(TAG, "string Array after removing strings: " + stringArray.toString());
 
         recyclerAdapter = new MyRecyclerAdapter(stringArray);
 

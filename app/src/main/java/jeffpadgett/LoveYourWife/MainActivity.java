@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         setContentView(R.layout.activity_main);
 
 
-        //Log.d("ParameterPassed", "onCreate in MainActivity called.");
+        Log.d("ParameterPassed", "onCreate in MainActivity called.");
         TAG = "MainActivity";
         REQUEST_INVITE = 13254;
 
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                     isFeatureSupported = mBillingClient.isFeatureSupported(BillingClient.FeatureType.IN_APP_ITEMS_ON_VR);
                     isBillingServiceConnected = true;
                     // The billing client is ready. You can query purchases here.
-                    //Log.d(TAG, "The billing client is ready. You can query purchases here.");
+                    Log.d(TAG, "The billing client is ready. You can query purchases here.");
 
                    // TODO:  remove test consumptions
                     String purchaseToken = "inapp:" + getPackageName() + ":android.test.purchased";
@@ -160,9 +160,9 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                         @Override
                         public void onConsumeResponse(int responseCode, String purchaseToken) {
                             if (responseCode==0) {
-                                //Log.d(TAG, "consumed android.test.purchased test.");
+                                Log.d(TAG, "consumed android.test.purchased test.");
                             }else {
-                                //Log.d(TAG, "android.test.purchased not consumed, response code: " + responseCode);
+                                Log.d(TAG, "android.test.purchased not consumed, response code: " + responseCode);
                             }
                         }
                     });
@@ -176,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                     }
 
                 } else {
-                        //Log.d(TAG, "problem with billing response code is: " + billingResponseCode);
+                        Log.d(TAG, "problem with billing response code is: " + billingResponseCode);
                         Toast.makeText(MainActivity.this, R.string.ProblemLoadingBillingClient, Toast.LENGTH_SHORT).show();
                         // put queryPurchases here, which will this also retry the connection
                         queryPurchases();
@@ -213,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
 
         if (lastCompleted != 0 ){
-            //Log.d("LASTCOMPLETED", lastCompleted + "");
+            Log.d("LASTCOMPLETED", lastCompleted + "");
             mViewPager.setCurrentItem(lastCompleted);  // do not need + 1, because pager starts at 0.
         }
 
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         if (nextDay == 123) {
             mViewPager.setCurrentItem(0);
         } else if (nextDay != 0) {
-            //Log.d("INTTEST", ""+ nextDay);
+            Log.d("INTTEST", ""+ nextDay);
             mViewPager.setCurrentItem(nextDay);  // do not need + 1, because pager starts at 0.
         }
 
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
     @Override
     public void beginPurchaseFlow() {
-        //Log.d(TAG, "main Activity received the click action");
+        Log.d(TAG, "main Activity received the click action");
 
                 //skuList.add("release_ads_and_content");
                 // skuList.add("gas");
@@ -294,7 +294,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 .build();
         int responseCode = mBillingClient.launchBillingFlow(MainActivity.this, flowParams);
 
-        //Log.d(TAG, "billing flow response code for " + skuId + ": "+responseCode);
+        Log.d(TAG, "billing flow response code for " + skuId + ": "+responseCode);
 
         // this, when finished, even if user cancels the flow, will trigger "onPurchasesUpdated, which calls onPurchasesUpdated2();
 
@@ -493,7 +493,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
     public void queryPurchases() {
 
         // creates a runnable background thread that queries google play store to see what has been purchased.
-        //Log.d(TAG, "queryPurchases called");
+        Log.d(TAG, "queryPurchases called");
         Runnable queryToExecute = new Runnable() {
             @Override
             public void run() {
@@ -513,14 +513,14 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
     private void executeServiceRequest(Runnable runnable) {
 
-        //Log.d(TAG, "execute Service Request called");
+        Log.d(TAG, "execute Service Request called");
         if (isBillingServiceConnected) {
-            //Log.d(TAG, "runnable being called");
+            Log.d(TAG, "runnable being called");
             runnable.run();
         } else {
             // If billing service was disconnected, we try to reconnect 1 time.
             // (feel free to introduce your retry policy here).
-            //Log.d(TAG, getString(R.string.BillingDisconnectStartService));
+            Log.d(TAG, getString(R.string.BillingDisconnectStartService));
             startServiceConnection(runnable);
         }
     }
@@ -530,7 +530,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
             @Override
             public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
-                //Log.d(TAG, "Setup finished. Response code: " + billingResponseCode);
+                Log.d(TAG, "Setup finished. Response code: " + billingResponseCode);
 
                 if (billingResponseCode == BillingClient.BillingResponse.OK) {
                     isBillingServiceConnected = true;
@@ -558,16 +558,16 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
      */
     private void onQueryPurchasesFinished(Purchase.PurchasesResult result) {
 
-        //Log.d(TAG, "onQueryPurchasesFinished is called. result is: " +result.toString());
+        Log.d(TAG, "onQueryPurchasesFinished is called. result is: " +result.toString());
 
         // Have we been disposed of in the meantime? If so, or bad result code, then quit
         if (mBillingClient == null || result.getResponseCode() != BillingClient.BillingResponse.OK) {
-            //Log.e(TAG, "Billing client was null or result code (" + result.getResponseCode()
-             //       + ") was bad - quitting");
+            Log.e(TAG, "Billing client was null or result code (" + result.getResponseCode()
+                    + ") was bad - quitting");
             return;
         }
 
-        //Log.d(TAG, "Query inventory was successful.");
+        Log.d(TAG, "Query inventory was successful.");
 
         List<Purchase> innerPurchaseList = result.getPurchasesList();
 
@@ -577,18 +577,18 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 switch (purchase.getSku()) {
                     case "release_ads_and_content":
                         // TODO: update the UI.
-                        //Log.d(TAG, "release_ads_and_content has already been purchased.");
-                        //Log.d(TAG, "update the UI with appropriate arguments by changing boolean");
-                        //Log.d(TAG, "mActivityContentPurchased = " +mActivityContentPurchased);
+                        Log.d(TAG, "release_ads_and_content has already been purchased.");
+                        Log.d(TAG, "update the UI with appropriate arguments by changing boolean");
+                        Log.d(TAG, "mActivityContentPurchased = " +mActivityContentPurchased);
                         mActivityContentPurchased = true; // use this to update the UI.
-                        //Log.d(TAG, "now mActivityContentPurchased = " +mActivityContentPurchased);
+                        Log.d(TAG, "now mActivityContentPurchased = " +mActivityContentPurchased);
                         break;
                     case "android.test.purchased":
-                        //Log.d(TAG, "android.test.purchased has already been purchased.");
-                        //Log.d(TAG, "update the UI with appropriate arguments by changing boolean");
-                        //Log.d(TAG, "mActivityContentPurchased = " +mActivityContentPurchased);
+                        Log.d(TAG, "android.test.purchased has already been purchased.");
+                        Log.d(TAG, "update the UI with appropriate arguments by changing boolean");
+                        Log.d(TAG, "mActivityContentPurchased = " +mActivityContentPurchased);
                         mActivityContentPurchased = true;
-                        //Log.d(TAG, "now mActivityContentPurchased = " +mActivityContentPurchased);
+                        Log.d(TAG, "now mActivityContentPurchased = " +mActivityContentPurchased);
                         break;
                 }
             }
@@ -604,20 +604,20 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
     private void onPurchasesUpdated2(int responseCode, List<Purchase> purchaseList) {
 
         if (responseCode == BillingClient.BillingResponse.USER_CANCELED) {
-            //Log.d(TAG, "user canceled the purchase flow");
+            Log.d(TAG, "user canceled the purchase flow");
             return;
         }
 
-        //Log.d(TAG, "Purchases updated called. response code:" +  responseCode);
+        Log.d(TAG, "Purchases updated called. response code:" +  responseCode);
 
         if (purchaseList == null) {
-            //Log.d(TAG, "no purchases have been made.  Perhaps this is new user. Resetting Content Purchased to false.");
+            Log.d(TAG, "no purchases have been made.  Perhaps this is new user. Resetting Content Purchased to false.");
             mActivityContentPurchased = false;
         }
 
         if (purchaseList!= null) {
 
-            //Log.d(TAG, "purchases updated called. Purchases List: " + purchaseList.toString());
+            Log.d(TAG, "purchases updated called. Purchases List: " + purchaseList.toString());
 
             for(Purchase purchase: purchaseList) {
 
@@ -630,8 +630,8 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 SharedPreferences sharedPreferences = getSharedPreferences("CONTENTPURCHASED", 0);
                 switch (purchase.getSku()) {
                     case "release_ads_and_content":
-                        //Log.d(TAG, "purchased release_ads_and content");
-                        //Log.d(TAG, "jumping to congrats activity");
+                        Log.d(TAG, "purchased release_ads_and content");
+                        Log.d(TAG, "jumping to congrats activity");
 
 
                         sharedPreferences.edit().putBoolean("CONTENTPURCHASED", true).commit();
@@ -639,8 +639,8 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                         startActivity(purchaseSuccess);
                       break;
                     case "android.test.purchased":
-                        //Log.d(TAG, "purchased android.test.purchased");
-                        //Log.d(TAG, "jumping to congrats activity");
+                        Log.d(TAG, "purchased android.test.purchased");
+                        Log.d(TAG, "jumping to congrats activity");
 
                         sharedPreferences.edit().putBoolean("CONTENTPURCHASED", true).commit();
 
@@ -650,10 +650,10 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
 
                 }
-                //Log.d(TAG, "original json: " + purchase.getOriginalJson());
-                //Log.d(TAG, "order id: " + purchase.getOrderId());
-                //Log.d(TAG, "signature: " + purchase.getSignature());
-                //Log.d(TAG, "package name: " + purchase.getPackageName());
+                Log.d(TAG, "original json: " + purchase.getOriginalJson());
+                Log.d(TAG, "order id: " + purchase.getOrderId());
+                Log.d(TAG, "signature: " + purchase.getSignature());
+                Log.d(TAG, "package name: " + purchase.getPackageName());
                 Log.d(TAG, "purchase Token: " + purchase.getPurchaseToken());
                 Log.d(TAG, "purchase Sku: " + purchase.getSku());
                 Log.d(TAG, "purchase time: " + purchase.getPurchaseTime());
@@ -668,7 +668,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
     @Override
     protected void onResume() {
-        //Log.d(TAG, "onResume called.");
+        Log.d(TAG, "onResume called.");
         queryPurchases();
         super.onResume();
     }
@@ -698,13 +698,13 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
 
             // I may need to add an intent... pass the intent here as a parameter.
-            //Log.d(TAG, "show Ad called.");
+            Log.d(TAG, "show Ad called.");
             if (mInterstitialAd.isLoaded()) {
-                //Log.d(TAG, "show ad loaded");
+                Log.d(TAG, "show ad loaded");
 
                 mInterstitialAd.show();
             } else {
-                //Log.d(TAG, "Ad not loaded");
+                Log.d(TAG, "Ad not loaded");
                 startActivity(intent);
             }
         } else {

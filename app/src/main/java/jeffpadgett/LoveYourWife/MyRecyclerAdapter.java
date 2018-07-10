@@ -21,7 +21,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     private ArrayList<String> myArray;
 
     public MyRecyclerAdapter(ArrayList<String> stringArray) {
-        //Log.d(TAG, "found within public constructor.");
+        Log.d(TAG, "found within public constructor.");
         this.myArray = stringArray;
     }
 
@@ -37,7 +37,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
             tvQuote = itemView.findViewById(R.id.tvRecyclerQuote);
             tvTrophyNumber = itemView.findViewById(R.id.tvDayTrophy);
             viewHolderContext= tvQuote.getContext();
-            //Log.d(TAG, "found within ViewHolder constructor..");
+            Log.d(TAG, "found within ViewHolder constructor..");
 
 
         }
@@ -47,7 +47,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     @Override
     public MyRecyclerAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        //Log.d(TAG, "found within onCreateViewHolder.");
+        Log.d(TAG, "found within onCreateViewHolder.");
 
 
         // create a new view
@@ -65,7 +65,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull MyRecyclerAdapter.ViewHolder holder, int position) {
 
-        //Log.d(TAG, "found within onBind.");
+        Log.d(TAG, "found within onBind.");
         int trophyNumber = position+1;
         String stTrophyNumber = "" + trophyNumber;
 
