@@ -16,6 +16,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.ToxicBakery.viewpager.transforms.ForegroundToBackgroundTransformer;
@@ -29,6 +32,7 @@ import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.appinvite.AppInviteInvitation;
@@ -61,6 +65,9 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
     boolean isBillingServiceConnected;
     boolean mActivityContentPurchased;
 
+    AdView bannerAd;
+
+
     private InterstitialAd mInterstitialAd;
 
     @Override
@@ -77,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        mViewPager = (ViewPager) findViewById(R.id.container);
 
         isBillingServiceConnected = false;
 
@@ -84,21 +92,43 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         SharedPreferences sharedPref = getSharedPreferences("CONTENTPURCHASED", 0);
         mActivityContentPurchased = sharedPref.getBoolean("CONTENTPURCHASED", false);
 
-        //TODO:  replace with my legit app id, which is in my email.  This is a test.
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+        bannerAd = new AdView(this);
+        bannerAd = findViewById(R.id.bannerAd);
 
-        mInterstitialAd = new InterstitialAd(this);
+        if (mActivityContentPurchased == false) {
+            //TODO:  replace with my legit app id, which is in my email.  This is a test.
+            MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
 
-        // TODO:  replace this test ad ID.
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+            mInterstitialAd = new InterstitialAd(this);
 
-        //load an ad
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+            // TODO:  replace this test ad ID.
+            mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+            //load an ad
+            mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
+
+            AdRequest adRequest = new AdRequest.Builder().build();
+            bannerAd.loadAd(adRequest);
+
+        } else {
+
+
+            RelativeLayout.LayoutParams params= new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT);
+            params.addRule(RelativeLayout.BELOW, R.id.toolbarLayout);
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+            mViewPager.setLayoutParams(params);
+             bannerAd.setVisibility(View.GONE);
+
+
+        }
 
 
 
 
 
+        final Boolean clickedRemoveAds = getIntent().getBooleanExtra("REMOVE_ADS", false);
 
         //
         // create new Person
@@ -145,12 +175,18 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                     // here we determine if the user has purchased the rest of the content, days 8-30.
                     queryPurchases();
 
+                    if (clickedRemoveAds) {
+
+                        beginPurchaseFlow();
+                    }
+
 
 
 
                 } else {
                         Log.d(TAG, "problem with billing response code is: " + billingResponseCode);
-                        Toast.makeText(MainActivity.this, "problem with billing Response Code", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Problem Loading the Billing Client through Google. ", Toast.LENGTH_SHORT).show();
+
                 }
             }
             @Override
@@ -158,8 +194,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 isBillingServiceConnected = false;
                 // Try to restart the connection on the next request to
                 // Google Play by calling the startConnection() method.
-                Toast.makeText(MainActivity.this, "Try to restart the connection on the next request to\n" +
-                        "                 Google Play by calling the startConnection() method.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "LoveYourWife Billing Service disconnected. ", Toast.LENGTH_SHORT).show();
 
              //   TODO:  Override this method, as listed here:  https://developer.android.com/google/play/billing/billing_java_kotlin#java
 
@@ -172,7 +207,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setPageTransformer(true, new ForegroundToBackgroundTransformer());
 
@@ -238,6 +273,9 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 Intent intent = new Intent(MainActivity.this, TrophyPage.class);
                 startActivity(intent);
                 break;
+            case R.id.action_removeAds:
+                beginPurchaseFlow();
+                break;
 
         }
 
@@ -245,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
     }
 
     @Override
-    public void beginPurchaseFlow(int position) {
+    public void beginPurchaseFlow() {
         Log.d(TAG, "main Activity received the click action");
 
                 //skuList.add("release_ads_and_content");

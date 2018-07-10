@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.android.billingclient.api.BillingClient;
 
-
 public class Day extends  Fragment {
 
     OnPurchaseButtonClicked mCallback;
@@ -27,7 +26,7 @@ public class Day extends  Fragment {
 
     // Container Activity must implement this interface
     public interface OnPurchaseButtonClicked {
-        public void beginPurchaseFlow(int position);
+        public void beginPurchaseFlow();
     }
 
     public interface ShowAd {
@@ -51,7 +50,6 @@ public class Day extends  Fragment {
     TextInputLayout edtTextLayout;
     Button btnComplete;
     ImageView imageView;
-
 
 
     // for the locked fragment
@@ -119,6 +117,8 @@ public class Day extends  Fragment {
         final Boolean previousDayCompleted = sharedPreviousCompleted.getBoolean(sharedPrefPreviousKey, false);
 
 
+
+
         // if you have not purchased the rest of the content:
 
 
@@ -137,6 +137,8 @@ public class Day extends  Fragment {
             btnPurchase = v.findViewById(R.id.btnPurchase);
             tvLockedDayNumber.setText("Day " + day);
 
+
+
             btnPurchase.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -148,7 +150,7 @@ public class Day extends  Fragment {
                     } else {
                         Log.d(TAG, "billing supported: " +isBillingFeatureSupported);
                         Toast.makeText(getActivity(),"feature supported", Toast.LENGTH_LONG).show();
-                        mCallback.beginPurchaseFlow(mParam1);
+                        mCallback.beginPurchaseFlow();
 
 
                         // here we can start the purchase flow I hope.
@@ -193,6 +195,8 @@ public class Day extends  Fragment {
 
 
             View v = inflater.inflate(R.layout.fragment_day, container, false);
+
+
 
             textView1 = (TextView) v.findViewById(R.id.textView1);
             editText = (EditText) v.findViewById(R.id.edtComments);

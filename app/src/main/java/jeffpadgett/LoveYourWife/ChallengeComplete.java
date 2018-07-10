@@ -38,6 +38,8 @@ public class ChallengeComplete extends AppCompatActivity {
     Button btnNext;
     int dayCompleted;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -244,6 +246,11 @@ public class ChallengeComplete extends AppCompatActivity {
                 break;
             case R.id.action_recommend:
                 onInviteClicked();
+                break;
+            case R.id.action_removeAds:
+                Intent removeAdsIntent = new Intent(ChallengeComplete.this, MainActivity.class);
+                removeAdsIntent.putExtra("REMOVE_ADS", true);
+                startActivity(removeAdsIntent);
                 break;
 
         }

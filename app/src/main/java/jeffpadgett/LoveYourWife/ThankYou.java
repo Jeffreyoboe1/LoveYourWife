@@ -86,6 +86,11 @@ public class ThankYou extends AppCompatActivity {
             case R.id.action_recommend:
                 onInviteClicked();
                 break;
+            case R.id.action_removeAds:
+                Intent removeAdsIntent = new Intent(ThankYou.this, MainActivity.class);
+                removeAdsIntent.putExtra("REMOVE_ADS", true);
+                startActivity(removeAdsIntent);
+                break;
 
         }
 
