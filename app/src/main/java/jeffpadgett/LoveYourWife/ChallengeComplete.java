@@ -69,101 +69,94 @@ public class ChallengeComplete extends AppCompatActivity {
 
         switch (dayCompleted) {
             case 1:
-                tvInspiration.setText("\"But love your enemies, do good to them, and lend to them without expecting to get anything back. Then your reward will be great, and you will be children of the Most High, because he is kind to the ungrateful and wicked.\" -- Luke 6:35");
+                tvInspiration.setText(getString(R.string.inspire1));
                 break;
             case 2:
-                tvInspiration.setText("\"Death cannot stop true love.  All it can do is delay it for a while.\" \n -- Wesley, The Princess Bride");
+                tvInspiration.setText(getString(R.string.inspire2));
                 break;
             case 3:
-                tvInspiration.setText("\"2 Be completely humble and gentle; be patient, bearing with one another in love.\" \n --Ephesians 4:2");
+                tvInspiration.setText(getString(R.string.inspire3));
                 break;
             case 4:
-                tvInspiration.setText("\"Love is always bestowed as a gift -freely, willingly, and without expectation. We don’t love to be loved, we love to love.\" \n --Leo Buscagalia");
+                tvInspiration.setText(getString(R.string.inspire4));
                 break;
             case 5:
-                tvInspiration.setText("\"My most brilliant achievement was my ability to persuade my wife to marry me.\" \n -- Winston Churchill");
+                tvInspiration.setText(getString(R.string.inspire5));
                 break;
             case 6:
-                tvInspiration.setText("\"Husbands, love your wives, just as Christ loved the church and gave himself up for her.\" \n -- Ephesians 5:25");
+                tvInspiration.setText(getString(R.string.inspire6));
                 break;
             case 7:
-                tvInspiration.setText("\"I am my beloved's, and my beloved is mine.\" \n -- Song of Solomon 8:3");
+                tvInspiration.setText(getString(R.string.inspire7));
                 break;
             case 8:
-                tvInspiration.setText("\"My most brilliant achievement was my ability to persuade my wife to marry me.\" \n -- Winston Churchill");
+                tvInspiration.setText(getString(R.string.inspire8));
                 break;
             case 9:
-                tvInspiration.setText("\"If I speak in the tongues of men or of angels, but do not have love, I am only a resounding gong or a clanging cymbal. If I have the gift of prophecy and can fathom all mysteries and all knowledge, and if I have a faith that can move mountains, but do not have love, I am nothing. If I give all I possess to the poor and give over my body to hardship that I may boast, but do not have love, I gain nothing.\" \n -- 1 Cor. 13:1-3");
+                tvInspiration.setText(getString(R.string.inspire9));
                 break;
             case 10:
-                tvInspiration.setText("\"Honor her for all that her hands have done, " +
-                        "and let her works bring her praise at the city gate.\" \n -- Proverbs 31:31");
+                tvInspiration.setText(getString(R.string.inspire10));
                 break;
             case 11:
-                tvInspiration.setText("\"Darkness cannot drive out darkness; only light can do that. Hate cannot drive out hate; only love can do that.\" \n -- Martin Luther King Jr.");
+                tvInspiration.setText(getString(R.string.inspire11));
                 break;
             case 12:
-                tvInspiration.setText("\"I love thee, I love but thee\n" +
-                        "With a love that shall not die\n" +
-                        "Till the sun grows cold\n" +
-                        "And the stars grow old.\"");
+                tvInspiration.setText(getString(R.string.inspire12));
                 break;
             case 13:
-                tvInspiration.setText("\"You come to love not by finding the perfect person, but by learning to see an imperfect person perfectly.\" \n -- Sam Keen ");
+                tvInspiration.setText(getString(R.string.inspire13));
                 break;
             case 14:
-                tvInspiration.setText("\"There are only two days in the year that nothing can be done. One is called Yesterday and the other is called Tomorrow.\" \n -- Dalai Lama XIV");
+                tvInspiration.setText(getString(R.string.inspire14));
                 break;
             case 15:
-                tvInspiration.setText("\"Marriage is a workshop… where the husband works and the wife shops.\" \n -- The Internet");
+                tvInspiration.setText(getString(R.string.inspire15));
                 break;
             case 16:
-                tvInspiration.setText("\"I destroy my enemy if I make him my friend.\" \n -- Abraham Lincoln");
+                tvInspiration.setText(getString(R.string.inspire16));
                 break;
             case 17:
-                tvInspiration.setText("\"I think the main lesson that we have learnt is that tolerance is the one essential ingredient of any happy marriage. It may not be quite so important when things are going well, but it is absolutely vital when the going gets difficult. You can take it from me that the Queen has the quality of tolerance in abundance.\" \n -- Prince Philip, Duke of Edinburgh");
+                tvInspiration.setText(getString(R.string.inspire17));
                 break;
             case 18:
-                tvInspiration.setText("\"I would rather share one lifetime with you than face all the ages of this world alone.\" \n -- Arwen, The Fellowship of The Ring");
-                      break;
+                tvInspiration.setText(getString(R.string.inspire18));
+                break;
             case 19:
-                tvInspiration.setText("\"To get the full value of joy you must have someone to divide it with.\" \n -- Mark Twain");
+                tvInspiration.setText(getString(R.string.inspire19));
                 break;
             case 20:
-                tvInspiration.setText("\"Though our feelings come and go, God's love for us does not.\" \n -- C.S. Lewis");
+                tvInspiration.setText(getString(R.string.inspire20));
                 break;
             case 21:
-                tvInspiration.setText("\"God is love. He didn’t need us. But he wanted us. And that is the most amazing thing.\" -- Rick Warren");
+                tvInspiration.setText(getString(R.string.inspire21));
                 break;
             case 22:
-                tvInspiration.setText("\"Love is a mighty pretty thing; but like all other delicious things, it is cloying; and when the first transports of the passion begins to subside, which it assuredly will do, and yield, oftentimes too late, to more sober reflections, it serves to evince, that love is too dainty a food to live upon alone, and ought not to be considered farther than as a necessary ingredient for that matrimonial happiness which results from a combination of causes.\" \n -- George Washington");
+                tvInspiration.setText(getString(R.string.inspire22));
                 break;
             case 23:
-                tvInspiration.setText("\"Stay with me to-night; you must see me die. I have long had the taste of death on my tongue, I smell death, and who will stand by my Constanze, if you do not stay?\" \n -- Wolfgang Amadeus Mozart");
+                tvInspiration.setText(getString(R.string.inspire23));
                 break;
             case 24:
-                tvInspiration.setText("\"It takes courage to love, but pain through love is the purifying fire which those who love generously know. We all know people who are so much afraid of pain that they shut themselves up like clams in a shell and, giving out nothing, receive nothing and therefore shrink until life is a mere living death.\"\n -- Eleanor Roosevelt");
+                tvInspiration.setText(getString(R.string.inspire24));
                 break;
             case 25:
-                tvInspiration.setText("I believe myself that romantic love is the source of the most intense delights that life has to offer. In the relation of a man and woman who love each other with passion and imagination and tenderness, there is something of inestimable value, to be ignorant of which is a great misfortune to any human being.\" \n -- Bertrand Russell");
+                tvInspiration.setText(getString(R.string.inspire25));
                 break;
             case 26:
-                tvInspiration.setText("\"Love is a fruit in season at all times, and within reach of every hand. Anyone may gather it and no limit is set. Everyone can reach this love through meditation, spirit of prayer, and sacrifice, by an intense inner life.\" \n -- Mother Theresa");
+                tvInspiration.setText(getString(R.string.inspire26));
                 break;
             case 27:
-                tvInspiration.setText("\"Whatever we do or suffer for a friend is pleasant, because love is the principal cause of pleasure.\n -- Thomas Aquinas");
+                tvInspiration.setText(getString(R.string.inspire27));
                 break;
             case 28:
-                tvInspiration.setText("\"The Caladrius is a bird of which it is related that, when it is carried into the presence of a sick person, if the sick man is going to die, the bird turns away its head and never looks at him; but if the sick man is to be saved the bird never loses sight of him but is the cause of curing him of all his sickness. Like unto this is the love of virtue. It never looks at any vile or base thing, but rather clings always to pure and virtuous things and takes up its abode in a noble heart; as the birds do in green woods on flowery branches. And this Love shows itself more in adversity than in prosperity; as light does, which shines most where the place is darkest.\"\n -- Leonardo Davinci");
+                tvInspiration.setText(getString(R.string.inspire28));
                 break;
             case 29:
-                tvInspiration.setText("\"Love is not a feeling to pass away \n" +
-                        "Like the balmy breath of a Summer's day....... \n" +
-                        "Love is not a passion of earthly mould \n" +
-                        "As a thirst for honour, or fame, or gold\"\n -- Charles Dickens");
+                tvInspiration.setText(getString(R.string.inspire29));
                 break;
             case 30:
-                tvInspiration.setText("\"Greater love has no one than this, that someone lay down his life for his friends.\"\n -- Jesus, John 15:13");
+                tvInspiration.setText(getString(R.string.inspire30));
                 tvCongratulations.append("\n You have Completed the 30 day Challenge to Love Your Wife!");
 
                 // move next button over to the right.

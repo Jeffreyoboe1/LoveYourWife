@@ -145,29 +145,12 @@ public class Day extends  Fragment {
 
                     Log.d(TAG, "is billing feature supported = " + isBillingFeatureSupported);
                     if (isBillingFeatureSupported == BillingClient.BillingResponse.FEATURE_NOT_SUPPORTED) {
-
+                        Toast.makeText(getActivity(),"Google Play billing is not supported on this device.", Toast.LENGTH_LONG).show();
 
                     } else {
                         Log.d(TAG, "billing supported: " +isBillingFeatureSupported);
-                        Toast.makeText(getActivity(),"feature supported", Toast.LENGTH_LONG).show();
+
                         mCallback.beginPurchaseFlow();
-
-
-                        // here we can start the purchase flow I hope.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                     }
 

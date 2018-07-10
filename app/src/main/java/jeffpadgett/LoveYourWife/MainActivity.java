@@ -154,9 +154,6 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                     // The billing client is ready. You can query purchases here.
                     Log.d(TAG, "The billing client is ready. You can query purchases here.");
 
-                    // this is part of the query... Query the list of purchases...
-
-
                    // TODO:  remove test consumptions
                     String purchaseToken = "inapp:" + getPackageName() + ":android.test.purchased";
                     mBillingClient.consumeAsync(purchaseToken, new ConsumeResponseListener() {
@@ -170,24 +167,19 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                         }
                     });
 
-
-
-
                     // here we determine if the user has purchased the rest of the content, days 8-30.
+
                     queryPurchases();
 
                     if (clickedRemoveAds) {
-
                         beginPurchaseFlow();
                     }
-
-
-
 
                 } else {
                         Log.d(TAG, "problem with billing response code is: " + billingResponseCode);
                         Toast.makeText(MainActivity.this, "Problem Loading the Billing Client through Google. ", Toast.LENGTH_SHORT).show();
-
+                        // put queryPurchases here, which will this also retry the connection
+                        queryPurchases();
                 }
             }
             @Override
@@ -197,7 +189,6 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 // Google Play by calling the startConnection() method.
                 Toast.makeText(MainActivity.this, "LoveYourWife Billing Service disconnected. ", Toast.LENGTH_SHORT).show();
 
-             //   TODO:  Override this method, as listed here:  https://developer.android.com/google/play/billing/billing_java_kotlin#java
 
             }
         });
@@ -518,42 +509,6 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 Purchase.PurchasesResult purchasesResult = mBillingClient.queryPurchases(BillingClient.SkuType.INAPP);
                 onQueryPurchasesFinished(purchasesResult);
 
-
-                /*
-                //TODO:  consider moving this to get prices at the beginning, and updating the UI with the prices later?
-                List skuList = new ArrayList<>();
-                skuList.add("release_ads_and_content");
-                skuList.add("gas");
-                skuList.add("android.test.purchased");
-                skuList.add("android.test.canceled");
-                skuList.add("android.test.unavailable");
-                SkuDetailsParams.Builder params = SkuDetailsParams.newBuilder();
-                params.setSkusList(skuList).setType(BillingClient.SkuType.INAPP);
-
-                // make a query on the items listed in skuList above.
-                mBillingClient.querySkuDetailsAsync(params.build(),
-                        new SkuDetailsResponseListener() {
-                            @Override
-                            public void onSkuDetailsResponse(int responseCode, List skuDetailsList) {
-
-                                // this just gives the details about all the items that are listed in the playstore for this app.
-                                // It does not say whether or not those items are purchased.  I think.
-
-                                Log.d(TAG, "SKU details response code: " + responseCode);
-                                Log.d(TAG, "SKU details response: " + skuDetailsList.toString());
-
-
-                                //TODO:  Here, I can get the price of the content and update the UI.
-                                // This is important because the price will be different based on nationalities.
-
-
-
-
-                            }
-                        });
-
-                        */
-
             }
         };
 
@@ -576,12 +531,14 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
     public void startServiceConnection(final Runnable executeOnSuccess) {
         mBillingClient.startConnection(new BillingClientStateListener() {
+
             @Override
             public void onBillingSetupFinished(@BillingClient.BillingResponse int billingResponseCode) {
                 Log.d(TAG, "Setup finished. Response code: " + billingResponseCode);
 
                 if (billingResponseCode == BillingClient.BillingResponse.OK) {
                     isBillingServiceConnected = true;
+
 
                     // query purchases here...
                     if (executeOnSuccess != null) {
@@ -615,8 +572,6 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         }
 
         Log.d(TAG, "Query inventory was successful.");
-
-        // TODO: Update the UI based on whether or not the rest of content has been purchased.
 
         List<Purchase> innerPurchaseList = result.getPurchasesList();
 
@@ -686,8 +641,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                         sharedPreferences.edit().putBoolean("CONTENTPURCHASED", true).commit();
 
                         startActivity(purchaseSuccess);
-                        // TODO: add the token, or a boolean, to shared prefs... so then this device knows it has been purchased..
-                        break;
+                      break;
                     case "android.test.purchased":
                         Log.d(TAG, "purchased android.test.purchased");
                         Log.d(TAG, "jumping to congrats activity");
