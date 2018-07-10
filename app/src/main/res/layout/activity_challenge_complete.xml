@@ -9,19 +9,21 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        app:theme="@style/ToolBarStyle"
+        >
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:logo="@mipmap/ic_launcher_foreground"
+            app:theme="@style/ToolBarStyle"
+            app:logo="@mipmap/ic_launcher"
+            app:titleMarginStart="32dp"
             app:title="Love Your Wife"/>
 
     </android.support.design.widget.AppBarLayout>
-
+<!--android:theme="@style/AppTheme.AppBarOverlay"-->
     <include layout="@layout/content_challenge_complete" />
 
     <!--

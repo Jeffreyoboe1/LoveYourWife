@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +45,8 @@ public class ChallengeComplete extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        Log.d("marginStart", "" + toolbar.getTitleMarginStart());
 
         imgTrophy = findViewById(R.id.imgTrophy);
         imgRings = findViewById(R.id.imgRings);

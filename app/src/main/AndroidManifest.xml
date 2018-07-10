@@ -29,7 +29,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ThankYou" />
         <activity android:name=".TrophyPage"
-            android:label="Trophies">
+            android:label="Trophies"
+            android:theme="@style/AppTheme.NoActionBar" >
 
         </activity>
     </application>
