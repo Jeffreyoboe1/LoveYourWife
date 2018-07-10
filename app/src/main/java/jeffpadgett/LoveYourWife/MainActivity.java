@@ -107,9 +107,10 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
             //load an ad
             mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
+            //TODO:  replace this builder with the commented one.
+            //AdRequest adRequest = new AdRequest.Builder().build();
 
-
-            AdRequest adRequest = new AdRequest.Builder().build();
+            AdRequest adRequest = new AdRequest.Builder().addTestDevice("8D254604C542C16046E353C4773A21DC").build();
             bannerAd.loadAd(adRequest);
 
         } else {
@@ -728,6 +729,10 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
                 @Override
                 public void onAdClosed() {
+                    //TODO:  replace builder with old one.
+                    AdRequest adRequest = new AdRequest.Builder().addTestDevice("8D254604C542C16046E353C4773A21DC").build();
+                    //AdRequest adRequest = new AdRequest.Builder().build();
+
                     mInterstitialAd.loadAd(new AdRequest.Builder().build());
                     startActivity(intent);
                     super.onAdClosed();
