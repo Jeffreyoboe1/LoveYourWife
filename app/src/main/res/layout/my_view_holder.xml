@@ -3,12 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
 
     <ImageView
         android:id="@+id/smallTrophy"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:src="@drawable/trophy2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -17,12 +18,18 @@
         android:id="@+id/tvDayTrophy"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1"/>
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="@id/smallTrophy"
+        app:layout_constraintLeft_toLeftOf="@id/smallTrophy"
+        app:layout_constraintRight_toRightOf="@id/smallTrophy"
+        app:layout_constraintTop_toTopOf="@id/smallTrophy"
+        app:layout_constraintVertical_bias="0.26" />
 
     <TextView
         android:id="@+id/tvRecyclerQuote"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toRightOf="@+id/smallTrophy"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

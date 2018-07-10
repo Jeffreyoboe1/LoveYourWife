@@ -1,10 +1,14 @@
 package jeffpadgett.LoveYourWife;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -15,12 +19,95 @@ import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
+import java.util.ArrayList;
+
 public class TrophyPage extends AppCompatActivity {
+
+    String TAG;
+
+    RecyclerView recyclerView;
+    MyRecyclerAdapter recyclerAdapter;
+    RecyclerView.LayoutManager layoutManager;
+    ArrayList<String> stringArray;
+    int lastCompletedChallenge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trophy_page);
+
+        TAG = "TrophyPage";
+
+        recyclerView = findViewById(R.id.recyclerTrophies);
+
+        //recyclerView.hasFixedSize();
+        layoutManager = new LinearLayoutManager(this);
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        stringArray = new ArrayList<>();
+
+        stringArray.add(getString(R.string.inspire1));
+        stringArray.add(getString(R.string.inspire2));
+        stringArray.add(getString(R.string.inspire3));
+        stringArray.add(getString(R.string.inspire4));
+        stringArray.add(getString(R.string.inspire5));
+        stringArray.add(getString(R.string.inspire6));
+        stringArray.add(getString(R.string.inspire7));
+        stringArray.add(getString(R.string.inspire8));
+        stringArray.add(getString(R.string.inspire9));
+        stringArray.add(getString(R.string.inspire10));
+        stringArray.add(getString(R.string.inspire11));
+        stringArray.add(getString(R.string.inspire12));
+        stringArray.add(getString(R.string.inspire13));
+        stringArray.add(getString(R.string.inspire14));
+        stringArray.add(getString(R.string.inspire15));
+        stringArray.add(getString(R.string.inspire16));
+        stringArray.add(getString(R.string.inspire17));
+        stringArray.add(getString(R.string.inspire18));
+        stringArray.add(getString(R.string.inspire19));
+        stringArray.add(getString(R.string.inspire20));
+        stringArray.add(getString(R.string.inspire21));
+        stringArray.add(getString(R.string.inspire22));
+        stringArray.add(getString(R.string.inspire23));
+        stringArray.add(getString(R.string.inspire24));
+        stringArray.add(getString(R.string.inspire25));
+        stringArray.add(getString(R.string.inspire26));
+        stringArray.add(getString(R.string.inspire27));
+        stringArray.add(getString(R.string.inspire28));
+        stringArray.add(getString(R.string.inspire29));
+        stringArray.add(getString(R.string.inspire30));
+
+        Log.d(TAG, "string Array after adding 30 strings: " + stringArray.toString());
+        SharedPreferences sharedPreferences = getSharedPreferences("LASTCOMPLETED", 0);
+        lastCompletedChallenge = sharedPreferences.getInt("LASTCOMPLETED", 0);
+
+        int removeThisPositionAndLater = lastCompletedChallenge;
+
+        Log.d(TAG, "remove this position and later: " + removeThisPositionAndLater);
+
+        stringArray.subList(removeThisPositionAndLater, stringArray.size()).clear();
+
+        Log.d(TAG, "string Array after removing strings: " + stringArray.toString());
+
+        recyclerAdapter = new MyRecyclerAdapter(stringArray);
+
+        recyclerView.setAdapter(recyclerAdapter);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
