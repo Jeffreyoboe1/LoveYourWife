@@ -10,18 +10,22 @@
 
 
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:logo="@mipmap/ic_launcher"
+        android:layout_height="wrap_content"
         app:theme="@style/ToolBarStyle"
-        app:titleMarginStart="32dp"
-
         >
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            app:logo="@mipmap/ic_launcher"
+            app:titleMarginStart="32dp"
+            >
 
-    </android.support.v7.widget.Toolbar>
+        </android.support.v7.widget.Toolbar>
+        <!-- logo taking too much space.  taking too much space -->
+    </android.support.design.widget.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
