@@ -218,6 +218,8 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         SharedPreferences sharedPreferences = getSharedPreferences("LASTCOMPLETED",0);
         lastCompleted = sharedPreferences.getInt("LASTCOMPLETED", 0);
 
+
+
         if (lastCompleted != 0 ){
             Log.d("LASTCOMPLETED", lastCompleted + "");
             mViewPager.setCurrentItem(lastCompleted);  // do not need + 1, because pager starts at 0.

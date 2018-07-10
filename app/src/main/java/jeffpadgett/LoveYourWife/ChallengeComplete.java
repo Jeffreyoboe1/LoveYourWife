@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -36,6 +37,7 @@ public class ChallengeComplete extends AppCompatActivity {
     ImageView imgRings;
     ImageView imgRings2;
     Button btnNext;
+    Button btnRecommend;
     int dayCompleted;
 
 
@@ -58,6 +60,7 @@ public class ChallengeComplete extends AppCompatActivity {
         tvInspiration = findViewById(R.id.tvCompletedInspiration);
         tvCongratulations = findViewById(R.id.tvCongrats);
         btnNext = findViewById(R.id.btnNext);
+        btnRecommend = findViewById(R.id.btnRecommend);
 
         //set the completion day
         dayCompleted = getIntent().getIntExtra("DAY", 1);
@@ -161,6 +164,22 @@ public class ChallengeComplete extends AppCompatActivity {
                 break;
             case 30:
                 tvInspiration.setText("\"Greater love has no one than this, that someone lay down his life for his friends.\"\n -- Jesus, John 15:13");
+                tvCongratulations.append("\n You have Completed the 30 day Challenge to Love Your Wife!");
+
+                // move next button over to the right.
+                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) btnNext.getLayoutParams();
+
+                params.startToStart = ConstraintLayout.LayoutParams.UNSET;
+                btnNext.setLayoutParams(params);
+
+                btnRecommend.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onInviteClicked();
+
+                    }
+                });
+
                 break;
 
 
@@ -193,6 +212,9 @@ public class ChallengeComplete extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation animation) {
                 btnNext.setVisibility(View.VISIBLE);
+                if (dayCompleted ==30) {
+                    btnRecommend.setVisibility(View.VISIBLE);
+                }
 
             }
 
