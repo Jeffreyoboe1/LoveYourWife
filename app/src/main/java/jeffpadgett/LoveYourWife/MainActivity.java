@@ -27,6 +27,10 @@ import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.SkuDetailsParams;
 import com.android.billingclient.api.SkuDetailsResponseListener;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -34,10 +38,11 @@ import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements Day.OnPurchaseButtonClicked{
+public class MainActivity extends AppCompatActivity implements Day.OnPurchaseButtonClicked, Day.ShowAd{
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
 
@@ -55,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
     boolean isBillingServiceConnected;
     boolean mActivityContentPurchased;
+
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +83,18 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         // see if the content has been purchased before and saved into sharedPref.
         SharedPreferences sharedPref = getSharedPreferences("CONTENTPURCHASED", 0);
         mActivityContentPurchased = sharedPref.getBoolean("CONTENTPURCHASED", false);
+
+        //TODO:  replace with my legit app id, which is in my email.  This is a test.
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+
+        mInterstitialAd = new InterstitialAd(this);
+
+        // TODO:  replace this test ad ID.
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        //load an ad
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
 
 
 
@@ -659,5 +678,41 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         Log.d(TAG, "onResume called.");
         queryPurchases();
         super.onResume();
+    }
+
+   public void showAd(final Intent intent) {
+
+
+        if (!mActivityContentPurchased) {
+            mInterstitialAd.setAdListener(new AdListener() {
+
+                @Override
+                public void onAdClosed() {
+                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                    startActivity(intent);
+                    super.onAdClosed();
+                }
+
+                @Override
+                public void onAdOpened() {
+                    super.onAdOpened();
+                }
+            });
+
+
+            // I may need to add an intent... pass the intent here as a parameter.
+            Log.d(TAG, "show Ad called.");
+            if (mInterstitialAd.isLoaded()) {
+                Log.d(TAG, "show ad loaded");
+
+                mInterstitialAd.show();
+            } else {
+                Log.d(TAG, "Ad not loaded");
+                startActivity(intent);
+            }
+        } else {
+            startActivity(intent);
+        }
+
     }
 }

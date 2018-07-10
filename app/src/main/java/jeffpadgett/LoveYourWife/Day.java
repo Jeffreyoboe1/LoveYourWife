@@ -23,10 +23,15 @@ import com.android.billingclient.api.BillingClient;
 public class Day extends  Fragment {
 
     OnPurchaseButtonClicked mCallback;
+    ShowAd mCallback2;
 
     // Container Activity must implement this interface
     public interface OnPurchaseButtonClicked {
         public void beginPurchaseFlow(int position);
+    }
+
+    public interface ShowAd {
+        public void showAd(Intent intent);
     }
 
 
@@ -331,9 +336,13 @@ public class Day extends  Fragment {
                         editor.putInt("LASTCOMPLETED", day);
                         editor.commit();
 
+
+
                         Intent intent = new Intent(getActivity(), ChallengeComplete.class);
-                        intent.putExtra("DAY", day);
-                        startActivity(intent);
+                       intent.putExtra("DAY", day);
+                       // startActivity(intent);
+
+                        mCallback2.showAd(intent);
 
 
                     }
@@ -449,6 +458,11 @@ public class Day extends  Fragment {
                         + " must implement OnHeadlineSelectedListener");
             }
 
+            try {
+                mCallback2 = (ShowAd) a;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(a.toString() + " must implement ShowAd Listener");
+            }
 
 
         }
