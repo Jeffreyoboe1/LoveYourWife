@@ -94,8 +94,8 @@ public class Day extends  Fragment {
             mParam1 = getArguments().getInt(ARG_PARAM1, 0);
             isBillingFeatureSupported = getArguments().getInt(ARG_ISBILLINGFEATURESUPPORTED, -1);
             contentPurchased = getArguments().getBoolean(ARG_CONTENT_PURCHASED, false);
-            Log.d(TAG, "mParam in onCreate is " +mParam1);
-            Log.d(TAG, "contentPurchased in onCreate of Day Frag is: " + contentPurchased);
+            //Log.d(TAG, "mParam in onCreate is " +mParam1);
+            //Log.d(TAG, "contentPurchased in onCreate of Day Frag is: " + contentPurchased);
         }
     }
 
@@ -143,12 +143,12 @@ public class Day extends  Fragment {
                 @Override
                 public void onClick(View view) {
 
-                    Log.d(TAG, "is billing feature supported = " + isBillingFeatureSupported);
+                    //Log.d(TAG, "is billing feature supported = " + isBillingFeatureSupported);
                     if (isBillingFeatureSupported == BillingClient.BillingResponse.FEATURE_NOT_SUPPORTED) {
                         Toast.makeText(getActivity(),"Google Play billing is not supported on this device.", Toast.LENGTH_LONG).show();
 
                     } else {
-                        Log.d(TAG, "billing supported: " +isBillingFeatureSupported);
+                        //Log.d(TAG, "billing supported: " +isBillingFeatureSupported);
 
                         mCallback.beginPurchaseFlow();
 
@@ -368,7 +368,7 @@ public class Day extends  Fragment {
 
         if (btnComplete != null) {
             if (btnComplete.getText().toString().equals("Completed!")) {
-                Log.d(TAG, "button match.  shared pref key is " + sharedPrefKey + " param is " + mParam1);
+                //Log.d(TAG, "button match.  shared pref key is " + sharedPrefKey + " param is " + mParam1);
                 SharedPreferences sharedPrefComplete = getActivity().getSharedPreferences("COMPLETED", Context.MODE_PRIVATE);
                 SharedPreferences.Editor compEditor = sharedPrefComplete.edit();
                 compEditor.putBoolean(sharedPrefKey, true);

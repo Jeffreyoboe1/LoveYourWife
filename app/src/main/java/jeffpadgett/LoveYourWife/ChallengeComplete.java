@@ -50,7 +50,7 @@ public class ChallengeComplete extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Log.d("marginStart", "" + toolbar.getTitleMarginStart());
+        //Log.d("marginStart", "" + toolbar.getTitleMarginStart());
 
         imgTrophy = findViewById(R.id.imgTrophy);
         imgRings = findViewById(R.id.imgRings);
@@ -157,7 +157,7 @@ public class ChallengeComplete extends AppCompatActivity {
                 break;
             case 30:
                 tvInspiration.setText(getString(R.string.inspire30));
-                tvCongratulations.append("\n You have Completed the 30 day Challenge to Love Your Wife!");
+                tvCongratulations.append(getString(R.string.Completed30Days));
 
                 // move next button over to the right.
                 ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) btnNext.getLayoutParams();
@@ -312,24 +312,19 @@ public class ChallengeComplete extends AppCompatActivity {
                             String dynamicString = shortLink.toString();
 
 
-                            String msg = "Hi, I have been using this app called LoveYourWife.  It can help improve your marriage. " + dynamicString;
-                            String subject = "Love Your Wife";
-                            String msgHtml = String.format("<p>Hi!  I've been using this app called Love Your Wife, and wanted to recommend it to you.  "
-                                    + "It has great ideas to improve your marriage and love your wife better. " +
-                                    " Click on this link to check it out. " + "<a href=\"%s\">Love Your Wife</a>!</p>", dynamicString);
-
+                            String msg = getString(R.string.RecommendMessage) + dynamicString;
+                            String subject = getString(R.string.RecommendSubject);
                             Intent sendIntent = new Intent();
                             sendIntent.setAction(Intent.ACTION_SEND);
                             sendIntent.putExtra(Intent.EXTRA_TEXT, msg);
                             sendIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-                            sendIntent.putExtra(Intent.EXTRA_HTML_TEXT, msgHtml);
                             sendIntent.setType("text/plain");
-                            startActivity(Intent.createChooser(sendIntent, "Recommend Love Your Wife to a friend"));
+                            startActivity(Intent.createChooser(sendIntent, getString(R.string.RecommendToFriendTitle)));
 
                         } else {
                             // Error
                             // ...
-                            Toast.makeText(ChallengeComplete.this, "error " + task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(ChallengeComplete.this, getString(R.string.Error) + task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
