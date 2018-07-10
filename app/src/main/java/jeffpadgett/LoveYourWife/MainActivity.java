@@ -643,6 +643,8 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
             }
 
 
+        } else if (innerPurchaseList == null) {
+            mActivityContentPurchased =false;
         }
 
       //  onPurchasesUpdated2(BillingClient.BillingResponse.OK, result.getPurchasesList());
