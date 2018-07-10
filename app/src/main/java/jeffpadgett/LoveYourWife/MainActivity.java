@@ -203,6 +203,9 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
             case R.id.action_share_app:
                 onInviteClicked();
                 break;
+            case R.id.action_recommend:
+                onInviteClicked();
+                break;
             case R.id.action_jumpBeginning:
                 mViewPager.setCurrentItem(0);
                 break;

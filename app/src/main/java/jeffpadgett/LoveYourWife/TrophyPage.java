@@ -148,6 +148,9 @@ public class TrophyPage extends AppCompatActivity {
             case R.id.action_share_app:
                 onInviteClicked();
                 break;
+            case R.id.action_recommend:
+                onInviteClicked();
+                break;
 
         }
 
