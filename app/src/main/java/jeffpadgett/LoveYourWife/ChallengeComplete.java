@@ -19,6 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
@@ -37,6 +40,7 @@ public class ChallengeComplete extends AppCompatActivity {
     ImageView imgRings2;
     Button btnNext;
     int dayCompleted;
+    private InterstitialAd mInterstitialAd;
 
 
 
@@ -58,6 +62,17 @@ public class ChallengeComplete extends AppCompatActivity {
         tvInspiration = findViewById(R.id.tvCompletedInspiration);
         tvCongratulations = findViewById(R.id.tvCongrats);
         btnNext = findViewById(R.id.btnNext);
+
+
+        mInterstitialAd = new InterstitialAd(this);
+
+        // TODO:  replace this test ad ID.
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        //load an ad
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
 
         //set the completion day
         dayCompleted = getIntent().getIntExtra("DAY", 1);
@@ -174,8 +189,9 @@ public class ChallengeComplete extends AppCompatActivity {
             public void onClick(View view) {
                 Intent backIntent = new Intent(ChallengeComplete.this, MainActivity.class);
                 backIntent.putExtra("NEXTDAY", dayCompleted);
-                startActivity(backIntent);
+                //startActivity(backIntent);
 
+                showAd(backIntent);
 
             }
         });
@@ -321,4 +337,42 @@ public class ChallengeComplete extends AppCompatActivity {
     }
 
 
+    public void showAd(final Intent intent) {
+
+        SharedPreferences sharedPref = getSharedPreferences("CONTENTPURCHASED", 0);
+        Boolean mActivityContentPurchased = sharedPref.getBoolean("CONTENTPURCHASED", false);
+
+
+        if (!mActivityContentPurchased) {
+            mInterstitialAd.setAdListener(new AdListener() {
+
+                @Override
+                public void onAdClosed() {
+                    mInterstitialAd.loadAd(new AdRequest.Builder().build());
+                    startActivity(intent);
+                    super.onAdClosed();
+                }
+
+                @Override
+                public void onAdOpened() {
+                    super.onAdOpened();
+                }
+            });
+
+
+            // I may need to add an intent... pass the intent here as a parameter.
+            Log.d("ChallengeComplete", "show Ad called.");
+            if (mInterstitialAd.isLoaded()) {
+                Log.d("ChallengeComplete", "show ad loaded");
+
+                mInterstitialAd.show();
+            } else {
+                Log.d("ChallengeComplete", "Ad not loaded");
+                startActivity(intent);
+            }
+        } else {
+            startActivity(intent);
+        }
+
+    }
 }

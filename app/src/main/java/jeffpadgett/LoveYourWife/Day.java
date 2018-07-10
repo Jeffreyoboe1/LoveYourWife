@@ -344,9 +344,9 @@ public class Day extends  Fragment {
 
                         Intent intent = new Intent(getActivity(), ChallengeComplete.class);
                        intent.putExtra("DAY", day);
-                       // startActivity(intent);
+                        startActivity(intent);
 
-                        mCallback2.showAd(intent);
+                       // mCallback2.showAd(intent);
 
 
                     }
