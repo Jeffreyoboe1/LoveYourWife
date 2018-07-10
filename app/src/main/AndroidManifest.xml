@@ -28,7 +28,10 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ThankYou" />
-        <activity android:name=".TrophyPage"></activity>
+        <activity android:name=".TrophyPage"
+            android:label="Trophies">
+
+        </activity>
     </application>
 
 </manifest>

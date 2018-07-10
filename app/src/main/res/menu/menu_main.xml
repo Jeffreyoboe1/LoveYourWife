@@ -7,10 +7,16 @@
 
     <item
         android:id="@+id/action_share_app"
-        android:icon="@android:drawable/ic_menu_share"
+        android:icon="@drawable/ic_action_share_white"
         android:orderInCategory="50"
         android:title="Invite"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_jumpCurrent"
+        android:orderInCategory="75"
+        android:title="Current Challenge"
+        app:showAsAction="never"/>
 
     <item
         android:id="@+id/action_jumpBeginning"
@@ -26,15 +32,17 @@
         app:showAsAction="never"
         />
 
-    <item
-        android:id="@+id/action_jumpCurrent"
-        android:orderInCategory="225"
-        android:title="Current Challenge"
-        app:showAsAction="never"/>
+
     <item
         android:id="@+id/action_trophyPage"
         android:orderInCategory="250"
         android:title="Trophies"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/action_recommend"
+        android:orderInCategory="275"
+        android:title="Recommend to Friend"
         app:showAsAction="never"
         />
 </menu>
