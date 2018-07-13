@@ -122,4 +122,8 @@ A cord of three strands is not quickly broken.\"
     <string name="ProblemLoadingBillingClient">Problem Loading the Billing Client through Google.</string>
     <string name="BillingDisconnected">LoveYourWife Billing Service disconnected.</string>
     <string name="BillingDisconnectStartService">Billing is disconnected, called startServiceconnection again</string>
+    <string name="BillingNotSupported">Google Play billing is not supported on this device.</string>
+    <string name="Day">Day</string>
+    <string name="CompleteChallengeOn">Complete the challenge on day</string>
+    <string name="SpaceToUnlock">to unlock.</string>
 </resources>
