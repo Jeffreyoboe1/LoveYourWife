@@ -57,6 +57,7 @@ public class Day extends  Fragment {
     TextView tvLocked;
     TextView tvLockedCompleteOtherDay;
     Button btnPurchase;
+    Button btnRemoveAds;
     // TODO: Rename and change types of parameters
     private int mParam1;
     private int isBillingFeatureSupported;
@@ -187,6 +188,7 @@ public class Day extends  Fragment {
              btnComplete = (Button) v.findViewById(R.id.button);
             edtTextLayout = v.findViewById(R.id.textInputLayout);
             imageView = v.findViewById(R.id.imageView);
+            btnRemoveAds = v.findViewById(R.id.btnRemoveAds);
 
             tvDayNumber.setText("Day " + day);
 
@@ -341,6 +343,17 @@ public class Day extends  Fragment {
 
             });
 
+            if (contentPurchased) {
+                btnRemoveAds.setVisibility(View.GONE);
+            } else {
+                btnRemoveAds.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mCallback.beginPurchaseFlow();
+                    }
+                });
+            }
+
 
             return v;
         }
@@ -455,4 +468,5 @@ public class Day extends  Fragment {
         }
 
     }
+
 }

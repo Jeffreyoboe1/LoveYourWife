@@ -113,7 +113,25 @@
                 android:focusable="false"/>
 
             <Button
-                android:id="@+id/button"
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="end"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/button"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="Complete"
+            android:focusableInTouchMode="false"
+            android:focusable="false"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            />
+
+            <Button
+                android:id="@+id/btnRemoveAds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -122,11 +140,11 @@
                 android:background="@drawable/button"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:text="Complete"
+                android:text="Remove Ads"
                 android:focusableInTouchMode="false"
                 android:focusable="false"
 
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout"
                 />
 

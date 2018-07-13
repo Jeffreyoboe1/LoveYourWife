@@ -712,4 +712,10 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         }
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+    }
 }
