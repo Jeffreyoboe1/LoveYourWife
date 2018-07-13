@@ -50,7 +50,7 @@ public class ChallengeComplete extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Log.d("marginStart", "" + toolbar.getTitleMarginStart());
+        //Log.d("marginStart", "" + toolbar.getTitleMarginStart());
 
         imgTrophy = findViewById(R.id.imgTrophy);
         imgRings = findViewById(R.id.imgRings);
