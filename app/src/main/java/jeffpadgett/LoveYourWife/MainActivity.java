@@ -96,21 +96,21 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
         bannerAd = findViewById(R.id.bannerAd);
 
         if (mActivityContentPurchased == false) {
-            //TODO:  replace with my legit app id, which is in my email.  This is a test.
-            MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
+            //This is my actual app ID.
+            MobileAds.initialize(this, "ca-app-pub-2213157796139553~1621803128");
 
             mInterstitialAd = new InterstitialAd(this);
 
-            // TODO:  replace this test ad ID.
-            mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+            // my ad ID
+            mInterstitialAd.setAdUnitId("ca-app-pub-2213157796139553/4556772431");
 
             //load an ad
             mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
-            //TODO:  replace this builder with the commented one.
-            //AdRequest adRequest = new AdRequest.Builder().build();
 
-            AdRequest adRequest = new AdRequest.Builder().addTestDevice("8D254604C542C16046E353C4773A21DC").build();
+            AdRequest adRequest = new AdRequest.Builder().build();
+            // if I want to test, use below adrequest.
+            //AdRequest adRequest = new AdRequest.Builder().addTestDevice("8D254604C542C16046E353C4773A21DC").build();
             bannerAd.loadAd(adRequest);
 
         } else {
