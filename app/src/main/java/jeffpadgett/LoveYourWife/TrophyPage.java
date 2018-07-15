@@ -29,7 +29,7 @@ public class TrophyPage extends AppCompatActivity {
 
     RecyclerView recyclerView;
     MyRecyclerAdapter recyclerAdapter;
-    RecyclerView.LayoutManager layoutManager;
+    LinearLayoutManager layoutManager;
     ArrayList<String> stringArray;
     int lastCompletedChallenge;
 
@@ -47,8 +47,11 @@ public class TrophyPage extends AppCompatActivity {
 
         //recyclerView.hasFixedSize();
         layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true);
+
 
         recyclerView.setLayoutManager(layoutManager);
+
 
         recyclerView.addItemDecoration(new DividerItemDecoration(TrophyPage.this, DividerItemDecoration.VERTICAL));
 
