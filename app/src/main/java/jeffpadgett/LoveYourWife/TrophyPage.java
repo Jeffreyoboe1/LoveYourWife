@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,12 +23,15 @@ import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class TrophyPage extends AppCompatActivity {
 
     String TAG;
 
+    TextView tvNoTrophy;
     RecyclerView recyclerView;
     MyRecyclerAdapter recyclerAdapter;
     LinearLayoutManager layoutManager;
@@ -44,6 +49,7 @@ public class TrophyPage extends AppCompatActivity {
         TAG = "TrophyPage";
 
         recyclerView = findViewById(R.id.recyclerTrophies);
+        tvNoTrophy = findViewById(R.id.tvMustCompleteChallenge);
 
         //recyclerView.hasFixedSize();
         layoutManager = new LinearLayoutManager(this);
@@ -97,6 +103,10 @@ public class TrophyPage extends AppCompatActivity {
         Log.d(TAG, "remove this position and later: " + removeThisPositionAndLater);
 
         stringArray.subList(removeThisPositionAndLater, stringArray.size()).clear();
+
+        if(stringArray.size() == 0) {
+            tvNoTrophy.setVisibility(View.VISIBLE);
+        }
 
         Log.d(TAG, "string Array after removing strings: " + stringArray.toString());
 
