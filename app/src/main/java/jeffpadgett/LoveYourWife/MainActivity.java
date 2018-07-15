@@ -287,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                 //   skuList.add("android.test.unavailable");
         //TODO:  when testing, change skuID to release_ads_and_content
 
-        String skuId = "android.test.purchased";
+        String skuId = "release_ads_and_content";
         BillingFlowParams flowParams = BillingFlowParams.newBuilder()
                 .setSku(skuId)
                 .setType(BillingClient.SkuType.INAPP) // SkuType.SUB for subscription
@@ -543,13 +543,13 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
                         mActivityContentPurchased = true; // use this to update the UI.
                         //Log.d(TAG, "now mActivityContentPurchased = " +mActivityContentPurchased);
                         break;
-                    case "android.test.purchased":
+                 //   case "android.test.purchased":
                         //Log.d(TAG, "android.test.purchased has already been purchased.");
                         //Log.d(TAG, "update the UI with appropriate arguments by changing boolean");
                         //Log.d(TAG, "mActivityContentPurchased = " +mActivityContentPurchased);
-                        mActivityContentPurchased = true;
+                    //    mActivityContentPurchased = true;
                         //Log.d(TAG, "now mActivityContentPurchased = " +mActivityContentPurchased);
-                        break;
+                     //   break;
                 }
             }
 
@@ -598,15 +598,15 @@ public class MainActivity extends AppCompatActivity implements Day.OnPurchaseBut
 
                         startActivity(purchaseSuccess);
                       break;
-                    case "android.test.purchased":
+                   // case "android.test.purchased":
                         //Log.d(TAG, "purchased android.test.purchased");
                         //Log.d(TAG, "jumping to congrats activity");
 
-                        sharedPreferences.edit().putBoolean("CONTENTPURCHASED", true).commit();
+                     //   sharedPreferences.edit().putBoolean("CONTENTPURCHASED", true).commit();
 
-                        startActivity(purchaseSuccess);
-                        // TODO: add the token, or a boolean, to shared prefs... so then this device knows it has been purchased..
-                        break;
+                      //  startActivity(purchaseSuccess);
+                      //  // TODO: add the token, or a boolean, to shared prefs... so then this device knows it has been purchased..
+                      //  break;
 
 
                 }
