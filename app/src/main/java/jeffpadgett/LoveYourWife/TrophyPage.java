@@ -13,6 +13,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,15 +23,18 @@ import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class TrophyPage extends AppCompatActivity {
 
     String TAG;
 
+    TextView tvNoTrophy;
     RecyclerView recyclerView;
     MyRecyclerAdapter recyclerAdapter;
-    RecyclerView.LayoutManager layoutManager;
+    LinearLayoutManager layoutManager;
     ArrayList<String> stringArray;
     int lastCompletedChallenge;
 
@@ -44,11 +49,15 @@ public class TrophyPage extends AppCompatActivity {
         TAG = "TrophyPage";
 
         recyclerView = findViewById(R.id.recyclerTrophies);
+        tvNoTrophy = findViewById(R.id.tvMustCompleteChallenge);
 
         //recyclerView.hasFixedSize();
         layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true);
+
 
         recyclerView.setLayoutManager(layoutManager);
+
 
         recyclerView.addItemDecoration(new DividerItemDecoration(TrophyPage.this, DividerItemDecoration.VERTICAL));
 
@@ -85,17 +94,21 @@ public class TrophyPage extends AppCompatActivity {
         stringArray.add(getString(R.string.inspire29));
         stringArray.add(getString(R.string.inspire30));
 
-        //Log.d(TAG, "string Array after adding 30 strings: " + stringArray.toString());
+        Log.d(TAG, "string Array after adding 30 strings: " + stringArray.toString());
         SharedPreferences sharedPreferences = getSharedPreferences("LASTCOMPLETED", 0);
         lastCompletedChallenge = sharedPreferences.getInt("LASTCOMPLETED", 0);
 
         int removeThisPositionAndLater = lastCompletedChallenge;
 
-        //Log.d(TAG, "remove this position and later: " + removeThisPositionAndLater);
+        Log.d(TAG, "remove this position and later: " + removeThisPositionAndLater);
 
         stringArray.subList(removeThisPositionAndLater, stringArray.size()).clear();
 
-        //Log.d(TAG, "string Array after removing strings: " + stringArray.toString());
+        if(stringArray.size() == 0) {
+            tvNoTrophy.setVisibility(View.VISIBLE);
+        }
+
+        Log.d(TAG, "string Array after removing strings: " + stringArray.toString());
 
         recyclerAdapter = new MyRecyclerAdapter(stringArray);
 
