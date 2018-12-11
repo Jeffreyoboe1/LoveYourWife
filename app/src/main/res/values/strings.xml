@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Love Your Wife</string>
+    <string name="app_name">Love Your Husband</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
@@ -96,7 +96,7 @@ A cord of three strands is not quickly broken.\"
      \n\n — Jesus, Matthew 22:39</string>
     <string name="inspire25">\"The Caladrius is a bird of which it is related that, when it is carried into the presence of a sick person, if the sick man is going to die, the bird turns away its head and never looks at him; but if the sick man is to be saved the bird never loses sight of him but is the cause of curing him of all his sickness. Like unto this is the love of virtue. It never looks at any vile or base thing, but rather clings always to pure and virtuous things and takes up its abode in a noble heart; as the birds do in green woods on flowery branches. And this Love shows itself more in adversity than in prosperity; as light does, which shines most where the place is darkest.\"
  \n\n — Leonardo Davinci</string>
-    <string name="inspire26">\"Marriage is when a man looses his bachelors degree and woman gets her masters degree.\"
+    <string name="inspire26">\"Marriage is when a man looses his bachelors degree and a woman gets her masters degree.\"
      \n   \n — Rama Kochar</string>
     <string name="inspire27">\"If I speak in the tongues of men or of angels, but do not have love, I am only a resounding gong or a clanging cymbal. If I have the gift of prophecy and can fathom all mysteries and all knowledge, and if I have a faith that can move mountains, but do not have love, I am nothing. If I give all I possess to the poor and give over my body to hardship that I may boast, but do not have love, I gain nothing.\"
  \n\n — 1 Cor. 13:1-3</string>
@@ -107,20 +107,20 @@ A cord of three strands is not quickly broken.\"
     <string name="inspire30">\"Greater love has no one than this, that someone lay down his life for his friends.\"
  \n\n — Jesus, John 15:13</string>
 
-    <string name="invitation_title">LoveYourWife Invitation</string>
-    <string name="invitation_message">Hi, I\'ve been using this app called "Love Your Wife". It can help improve you marriage.\u0020</string>
+    <string name="invitation_title">LoveYourHusband Invitation</string>
+    <string name="invitation_message">Hi, I\'ve been using this app called "Love Your Husband". It can help improve you marriage.\u0020</string>
     <string name="invitation_deep_link">google.com</string>
     <string name="invitation_cta">Click here to open</string>
 
     <string name="title_activity_challenge_complete">Challenge Complete</string>
-    <string name="Completed30Days">You have Completed the 30 day Challenge to Love Your Wife!</string>
-    <string name="RecommendMessage">Hi, I want to recommend the App LoveYourWife. It can help to improve your relationship with your wife.\u0020</string>
-    <string name="RecommendSubject">Love Your Wife</string>
-    <string name="RecommendMessageHTML"><![CDATA[<p>Hi!  I\'ve been using this app called Love Your Wife, and wanted to recommend it to you. It has great ideas to improve your marriage and love your wife better. Click on this link to check it out.]]></string>
-    <string name="RecommendToFriendTitle">Recommend Love Your Wife to a friend</string>
+    <string name="Completed30Days">You have Completed the 30 day Challenge to Love Your Husband!</string>
+    <string name="RecommendMessage">Hi, I want to recommend the App LoveYourHusband. It can help to improve your relationship with your husband.\u0020</string>
+    <string name="RecommendSubject">Love Your Husband</string>
+    <string name="RecommendMessageHTML"><![CDATA[<p>Hi!  I\'ve been using this app called Love Your Husband, and wanted to recommend it to you. It has great ideas to improve your marriage and love your husband better. Click on this link to check it out.]]></string>
+    <string name="RecommendToFriendTitle">Recommend Love Your Husband to a friend</string>
     <string name="Error">Error</string>
     <string name="ProblemLoadingBillingClient">Problem Loading the Billing Client through Google.</string>
-    <string name="BillingDisconnected">LoveYourWife Billing Service disconnected.</string>
+    <string name="BillingDisconnected">LoveYourHusband Billing Service disconnected.</string>
     <string name="BillingDisconnectStartService">Billing is disconnected, called startServiceconnection again</string>
     <string name="BillingNotSupported">Google Play billing is not supported on this device.</string>
     <string name="Day">Day</string>
