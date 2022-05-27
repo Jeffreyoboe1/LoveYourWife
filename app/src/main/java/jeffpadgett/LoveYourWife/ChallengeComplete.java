@@ -261,12 +261,6 @@ public class ChallengeComplete extends AppCompatActivity {
             case R.id.action_recommend:
                 onInviteClicked();
                 break;
-            case R.id.action_removeAds:
-                Intent removeAdsIntent = new Intent(ChallengeComplete.this, MainActivity.class);
-                removeAdsIntent.putExtra("REMOVE_ADS", true);
-                startActivity(removeAdsIntent);
-                break;
-
         }
 
         return super.onOptionsItemSelected(item);

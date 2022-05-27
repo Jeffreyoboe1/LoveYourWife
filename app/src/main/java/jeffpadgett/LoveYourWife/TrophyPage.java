@@ -172,12 +172,6 @@ public class TrophyPage extends AppCompatActivity {
             case R.id.action_recommend:
                 onInviteClicked();
                 break;
-            case R.id.action_removeAds:
-                Intent removeAdsIntent = new Intent(TrophyPage.this, MainActivity.class);
-                removeAdsIntent.putExtra("REMOVE_ADS", true);
-                startActivity(removeAdsIntent);
-                break;
-
         }
 
         return super.onOptionsItemSelected(item);

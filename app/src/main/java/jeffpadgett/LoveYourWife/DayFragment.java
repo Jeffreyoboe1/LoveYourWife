@@ -2,7 +2,6 @@ package jeffpadgett.LoveYourWife;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,32 +16,22 @@ import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
-import com.android.billingclient.api.BillingClient;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class Day extends Fragment {
+public class DayFragment extends Fragment {
 
-    OnPurchaseButtonClicked mCallback;
-    ShowAd mCallback2;
+    OnDayCompletedListener onDayCompletedListener;
 
-    // Container Activity must implement this interface
-    public interface OnPurchaseButtonClicked {
-        public void beginPurchaseFlow();
-    }
-
-    public interface ShowAd {
-        public void showAd(Intent intent);
+    public interface OnDayCompletedListener {
+        void onDayCompleted(int day);
     }
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_ISBILLINGFEATURESUPPORTED = "param2";
-    private static final String ARG_CONTENT_PURCHASED = "param3";
     private static final String TAG = "Day.java";
     private static String sharedPrefKey;
     private static String sharedPrefPreviousKey;
-
 
     TextView tvDayNumber;
     TextView textView1;
@@ -55,17 +44,12 @@ public class Day extends Fragment {
     TextView tvLockedDayNumber;
     TextView tvLocked;
     TextView tvLockedCompleteOtherDay;
-    Button btnPurchase;
-    Button btnRemoveAds;
     // TODO: Rename and change types of parameters
     private int mParam1;
-    private int isBillingFeatureSupported;
-    Boolean contentPurchased;
-
 
     //private OnFragmentInteractionListener mListener;
 
-    public Day() {
+    public DayFragment() {
         // Required empty public constructor
     }
 
@@ -77,12 +61,10 @@ public class Day extends Fragment {
      * @return A new instance of fragment Day.
      */
     // TODO: Rename and change types and number of parameters
-    public static Day newInstance(int param1, int isBillingFeatureSupported, boolean contentPurchased) {
-        Day fragment = new Day();
+    public static DayFragment newInstance(int param1) {
+        DayFragment fragment = new DayFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM1, param1);
-        args.putInt(ARG_ISBILLINGFEATURESUPPORTED, isBillingFeatureSupported);
-        args.putBoolean(ARG_CONTENT_PURCHASED, contentPurchased);
         fragment.setArguments(args);
         return fragment;
     }
@@ -92,10 +74,7 @@ public class Day extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             mParam1 = getArguments().getInt(ARG_PARAM1, 0);
-            isBillingFeatureSupported = getArguments().getInt(ARG_ISBILLINGFEATURESUPPORTED, -1);
-            contentPurchased = getArguments().getBoolean(ARG_CONTENT_PURCHASED, false);
             Log.d(TAG, "mParam in onCreate is " + mParam1);
-            Log.d(TAG, "contentPurchased in onCreate of Day Frag is: " + contentPurchased);
         }
     }
 
@@ -114,56 +93,25 @@ public class Day extends Fragment {
         final SharedPreferences sharedPreviousCompleted = getActivity().getSharedPreferences("COMPLETED", Context.MODE_PRIVATE);
         final Boolean previousDayCompleted = sharedPreviousCompleted.getBoolean(sharedPrefPreviousKey, false);
 
-        // if you have not purchased the rest of the content:
-        // if on day 7-30, and content not purchased, display unpurchased
-        // if on day 7-30, content purchased, then display either the lock or the app
-        // if on day 1-6, display either the lock or the app.
-
-        //if not first or 2nd challenge, and previous day is not completed
-        if (mParam1 > 6 && contentPurchased == false) {
-            View v = inflater.inflate(R.layout.fragment_unpurchased, container, false);
+        View v;
+        if (mParam1 != 0 && mParam1 != 1 && !previousDayCompleted) {
+            v = inflater.inflate(R.layout.fragment_locked, container, false);
 
             tvLocked = v.findViewById(R.id.tvLocked);
             tvLockedDayNumber = v.findViewById(R.id.tvLockedDayNumber);
-            btnPurchase = v.findViewById(R.id.btnPurchase);
-            tvLockedDayNumber.setText("Day " + day);
-
-            btnPurchase.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d(TAG, "is billing feature supported = " + isBillingFeatureSupported);
-                    if (isBillingFeatureSupported == BillingClient.BillingResponse.FEATURE_NOT_SUPPORTED) {
-                        Toast.makeText(getActivity(), R.string.BillingNotSupported, Toast.LENGTH_LONG).show();
-                    } else {
-                        Log.d(TAG, "billing supported: " + isBillingFeatureSupported);
-                        mCallback.beginPurchaseFlow();
-                    }
-                }
-            });
-
-
-            return v;
-        } else if (mParam1 != 0 && mParam1 != 1 && previousDayCompleted == false) {
-            View v = inflater.inflate(R.layout.fragment_locked, container, false);
-
-            tvLocked = (TextView) v.findViewById(R.id.tvLocked);
-            tvLockedDayNumber = (TextView) v.findViewById(R.id.tvLockedDayNumber);
-            tvLockedCompleteOtherDay = (TextView) v.findViewById(R.id.tvCompleteOtherDay);
+            tvLockedCompleteOtherDay = v.findViewById(R.id.tvCompleteOtherDay);
 
             tvLockedDayNumber.setText("Day " + day);
             tvLockedCompleteOtherDay.setText("Complete the challenge on day " + (day - 1) + " to unlock.");
-            return v;
         } else {  // if on day 1, day 2, or if previous challenge is completed, and content is purchased
+            v = inflater.inflate(R.layout.fragment_day, container, false);
 
-            View v = inflater.inflate(R.layout.fragment_day, container, false);
-
-            textView1 = (TextView) v.findViewById(R.id.textView1);
-            editText = (EditText) v.findViewById(R.id.edtComments);
-            tvDayNumber = (TextView) v.findViewById(R.id.tvDayNumber);
-            btnComplete = (Button) v.findViewById(R.id.button);
+            textView1 = v.findViewById(R.id.textView1);
+            editText = v.findViewById(R.id.edtComments);
+            tvDayNumber = v.findViewById(R.id.tvDayNumber);
+            btnComplete = v.findViewById(R.id.button);
             edtTextLayout = v.findViewById(R.id.textInputLayout);
             imageView = v.findViewById(R.id.imageView);
-            btnRemoveAds = v.findViewById(R.id.btnRemoveAds);
 
             tvDayNumber.setText("Day " + day);
 
@@ -280,12 +228,9 @@ public class Day extends Fragment {
                     break;
             }
 
-
             btnComplete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // has this day been completed?
-
 //TODO: change back to 25
                     if (editText.getText().length() > 20) {
                         btnComplete.setText("Completed!");
@@ -295,30 +240,14 @@ public class Day extends Fragment {
                         editor.putInt("LASTCOMPLETED", day);
                         editor.commit();
 
-
-                        Intent intent = new Intent(getActivity(), ChallengeComplete.class);
-                        intent.putExtra("DAY", day);
-                        // startActivity(intent);
-
-                        mCallback2.showAd(intent);
+                        onDayCompletedListener.onDayCompleted(day);
                     } else {
                         Toast.makeText(getActivity(), "You can say a little more than that! ", Toast.LENGTH_LONG).show();
                     }
                 }
             });
-
-            if (contentPurchased) {
-                btnRemoveAds.setVisibility(View.GONE);
-            } else {
-                btnRemoveAds.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mCallback.beginPurchaseFlow();
-                    }
-                });
-            }
-            return v;
         }
+        return v;
     }
 
     @Override
@@ -326,10 +255,8 @@ public class Day extends Fragment {
         super.onStart();
     }
 
-
     @Override
     public void onPause() {
-
         SharedPreferences sharedPref = getActivity().getSharedPreferences("THOUGHTS", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
@@ -358,47 +285,6 @@ public class Day extends Fragment {
         super.onResume();
     }
 
-
-
-    /*
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-
-    /*
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
-
-    */
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -411,14 +297,7 @@ public class Day extends Fragment {
             a = (Activity) context;
 
             try {
-                mCallback = (OnPurchaseButtonClicked) a;
-            } catch (ClassCastException e) {
-                throw new ClassCastException(a.toString()
-                        + " must implement OnHeadlineSelectedListener");
-            }
-
-            try {
-                mCallback2 = (ShowAd) a;
+                onDayCompletedListener = (OnDayCompletedListener) a;
             } catch (ClassCastException e) {
                 throw new ClassCastException(a.toString() + " must implement ShowAd Listener");
             }

@@ -4,61 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/flowers"
+    android:orientation="vertical"
     tools:context=".TrophyPage">
 
-
-
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:theme="@style/ToolBarStyle"
-        >
-        <android.support.v7.widget.Toolbar
+        app:theme="@style/ToolBarStyle">
+
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             app:logo="@mipmap/ic_launcher"
-            app:titleMarginStart="32dp"
-            >
+            app:titleMarginStart="32dp">
 
-        </android.support.v7.widget.Toolbar>
+        </androidx.appcompat.widget.Toolbar>
         <!-- logo taking too much space.  taking too much space -->
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerTrophies"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-
-            </android.support.v7.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
 
             <TextView
                 android:id="@+id/tvMustCompleteChallenge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/CompleteChallengeForTrophy"
-                android:textStyle="italic"
-                android:textSize="20sp"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_margin="8dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_margin="8dp"
                 android:gravity="center_horizontal"
-                android:visibility="gone"/>
+                android:text="@string/CompleteChallengeForTrophy"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"
+                android:textStyle="italic"
+                android:visibility="gone" />
 
         </LinearLayout>
-
-
 
 
     </ScrollView>
