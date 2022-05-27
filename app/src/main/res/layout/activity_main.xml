@@ -10,30 +10,25 @@
     android:orientation="vertical"
     tools:context="jeffpadgett.LoveYourWife.MainActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/toolbarLayout"
+    <!--    TODO: issue with logo size-->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        app:theme="@style/ToolBarStyle">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize"
-            app:logo="@mipmap/ic_launcher"
-            app:titleMarginStart="32dp">
-
-        </androidx.appcompat.widget.Toolbar>
-        <!-- logo taking too much space.  taking too much space -->
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:logo="@mipmap/ic_launcher"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ToolBarStyle"
+        app:titleMarginStart="32dp" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bannerAd"
-        android:layout_below="@+id/toolbarLayout"
+        android:layout_below="@+id/toolbar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -41,7 +36,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
         ads:adSize="SMART_BANNER"
-         />
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
 </RelativeLayout>
