@@ -30,7 +30,7 @@
         <!-- logo taking too much space.  taking too much space -->
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
+    <androidx.core.view.ViewPager
         android:id="@+id/container"
         android:layout_below="@+id/toolbarLayout"
         android:layout_above="@+id/bannerAd"
