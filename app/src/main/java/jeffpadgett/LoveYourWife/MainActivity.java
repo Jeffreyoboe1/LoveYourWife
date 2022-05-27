@@ -194,7 +194,8 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
                             startActivity(Intent.createChooser(sendIntent, getString(R.string.RecommendToFriendTitle)));
                         } else {
                             // Error
-                            Toast.makeText(MainActivity.this, R.string.Error + task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            Log.e(TAG, task.getException().getLocalizedMessage());
+                            Toast.makeText(MainActivity.this, getString(R.string.Invitation_Error), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

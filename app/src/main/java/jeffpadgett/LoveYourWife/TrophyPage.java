@@ -213,7 +213,7 @@ public class TrophyPage extends AppCompatActivity {
                         } else {
                             // Error
                             // ...
-                            Toast.makeText(TrophyPage.this, "error " + task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(TrophyPage.this, getString(R.string.Invitation_Error), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

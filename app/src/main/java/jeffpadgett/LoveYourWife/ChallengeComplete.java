@@ -33,12 +33,9 @@ public class ChallengeComplete extends AppCompatActivity {
     TextView tvChallengeComplete;
     TextView tvInspiration;
     ImageView imgTrophy;
-    ImageView imgRings;
-    ImageView imgRings2;
     Button btnNext;
     Button btnRecommend;
     int dayCompleted;
-
 
 
     @Override
@@ -52,8 +49,6 @@ public class ChallengeComplete extends AppCompatActivity {
         Log.d("marginStart", "" + toolbar.getTitleMarginStart());
 
         imgTrophy = findViewById(R.id.imgTrophy);
-        imgRings = findViewById(R.id.imgRings);
-        imgRings2 = findViewById(R.id.imgRings);
 
         tvChallengeComplete = findViewById(R.id.tvCompletedDay);
         tvInspiration = findViewById(R.id.tvCompletedInspiration);
@@ -168,17 +163,10 @@ public class ChallengeComplete extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         onInviteClicked();
-
                     }
                 });
-
                 break;
-
-
-
-
         }
-
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -186,14 +174,10 @@ public class ChallengeComplete extends AppCompatActivity {
                 Intent backIntent = new Intent(ChallengeComplete.this, MainActivity.class);
                 backIntent.putExtra("NEXTDAY", dayCompleted);
                 startActivity(backIntent);
-
-
             }
         });
 
-
-
-        ScaleAnimation anim2 = new ScaleAnimation(0f, 1f, 0f,1f,
+        ScaleAnimation anim2 = new ScaleAnimation(0f, 1f, 0f, 1f,
                 Animation.RELATIVE_TO_SELF, .5f, Animation.RELATIVE_TO_SELF, .5f);
         anim2.setFillAfter(true);
         anim2.setDuration(2000);
@@ -201,10 +185,11 @@ public class ChallengeComplete extends AppCompatActivity {
             @Override
             public void onAnimationStart(Animation animation) {
             }
+
             @Override
             public void onAnimationEnd(Animation animation) {
                 btnNext.setVisibility(View.VISIBLE);
-                if (dayCompleted ==30) {
+                if (dayCompleted == 30) {
                     btnRecommend.setVisibility(View.VISIBLE);
                 }
 
@@ -236,7 +221,7 @@ public class ChallengeComplete extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
 
-        switch (id){
+        switch (id) {
             case R.id.action_jumpBeginning:
                 Intent intent = new Intent(ChallengeComplete.this, MainActivity.class);
                 intent.putExtra("NEXTDAY", 123);
@@ -303,8 +288,6 @@ public class ChallengeComplete extends AppCompatActivity {
                             Uri flowchartLink = task.getResult().getPreviewLink();
 
                             String dynamicString = shortLink.toString();
-
-
                             String msg = getString(R.string.RecommendMessage) + dynamicString;
                             String subject = getString(R.string.RecommendSubject);
                             Intent sendIntent = new Intent();
@@ -316,12 +299,9 @@ public class ChallengeComplete extends AppCompatActivity {
 
                         } else {
                             // Error
-                            // ...
-                            Toast.makeText(ChallengeComplete.this, getString(R.string.Error) + task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(ChallengeComplete.this, getString(R.string.Invitation_Error), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
-
-
 }

@@ -242,7 +242,7 @@ public class DayFragment extends Fragment {
 
                         onDayCompletedListener.onDayCompleted(day);
                     } else {
-                        Toast.makeText(getActivity(), "You can say a little more than that! ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "You can say a little more than that! ", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

@@ -118,7 +118,7 @@ A cord of three strands is not quickly broken.\"
     <string name="RecommendSubject">Love Your Husband</string>
     <string name="RecommendMessageHTML"><![CDATA[<p>Hi!  I\'ve been using this app called Love Your Husband, and wanted to recommend it to you. It has great ideas to improve your marriage and love your husband better. Click on this link to check it out.]]></string>
     <string name="RecommendToFriendTitle">Recommend Love Your Husband to a friend</string>
-    <string name="Error">Error</string>
+    <string name="Invitation_Error">Error creating invitation link.  Are you connected to the internet?</string>
     <string name="ProblemLoadingBillingClient">Problem Loading the Billing Client through Google.</string>
     <string name="BillingDisconnected">LoveYourHusband Billing Service disconnected.</string>
     <string name="BillingDisconnectStartService">Billing is disconnected, called startServiceconnection again</string>
