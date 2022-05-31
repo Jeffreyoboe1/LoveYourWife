@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
     int lastCompleted;
     private static final String TEST_INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
     private static final String LOVE_YOUR_WIFE_INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-2213157796139553/4556772431";
+    private static final String LOVE_YOUR_WIFE_V2_INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-2213157796139553/6221412312";
     private static final String TEST_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
     private static final String LOVE_YOUR_WIFE_BANNER_AD_UNIT_ID = "ca-app-pub-2213157796139553/5280225966";
     private static final String LOVE_YOUR_WIFE_V2_BANNER_AD_UNIT_ID = "ca-app-pub-2213157796139553/3417772111";
@@ -289,7 +290,7 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
     private void loadInterstitial(@Nullable OnAdLoaded onAdLoaded) {
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(this, LOVE_YOUR_WIFE_INTERSTITIAL_AD_UNIT_ID, adRequest,
+        InterstitialAd.load(this, LOVE_YOUR_WIFE_V2_INTERSTITIAL_AD_UNIT_ID, adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
