@@ -52,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
     int REQUEST_INVITE;
     int lastCompleted;
     private static final String TEST_INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-3940256099942544/1033173712";
+    private static final String LOVE_YOUR_WIFE_INTERSTITIAL_AD_UNIT_ID = "ca-app-pub-2213157796139553/4556772431";
     private static final String TEST_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
+    private static final String LOVE_YOUR_WIFE_BANNER_AD_UNIT_ID = "ca-app-pub-2213157796139553/5280225966";
     // use for actual device testing of production-like ads from admob- to use with adRequest
     private static final String TEST_DEVICE = "8D254604C542C16046E353C4773A21DC";
     private InterstitialAd mInterstitialAd;
@@ -286,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
     private void loadInterstitial(@Nullable OnAdLoaded onAdLoaded) {
         AdRequest adRequest = new AdRequest.Builder().build();
 
-        InterstitialAd.load(this, TEST_INTERSTITIAL_AD_UNIT_ID, adRequest,
+        InterstitialAd.load(this, LOVE_YOUR_WIFE_INTERSTITIAL_AD_UNIT_ID, adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
