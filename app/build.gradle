@@ -1,9 +1,10 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 31
     defaultConfig {
-        applicationId "jeffpadgett.LoveYourWife"
+        applicationId "com.loveyourwife"
         minSdkVersion 23
         targetSdkVersion 31
         versionCode 1
@@ -32,6 +33,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     implementation 'com.andkulikov:transitionseverywhere:1.8.0'
     implementation 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
+    implementation platform('com.google.firebase:firebase-bom:30.1.0')
+    implementation 'com.google.firebase:firebase-dynamic-links'
+    implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-core:21.0.0'
     implementation 'com.google.firebase:firebase-invites:17.0.0'
     implementation 'com.google.firebase:firebase-ads:21.0.0'
@@ -43,4 +47,3 @@ dependencies {
 
 
 }
-apply plugin: 'com.google.gms.google-services'

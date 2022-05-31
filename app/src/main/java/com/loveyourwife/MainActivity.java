@@ -1,4 +1,4 @@
-package jeffpadgett.LoveYourWife;
+package com.loveyourwife;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -6,9 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -27,7 +25,6 @@ import androidx.viewpager.widget.ViewPager;
 import com.ToxicBakery.viewpager.transforms.ForegroundToBackgroundTransformer;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
@@ -39,8 +36,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
-
-import java.util.function.Function;
 
 public class MainActivity extends AppCompatActivity implements DayFragment.OnDayCompletedListener {
 
@@ -57,6 +52,9 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
     private static final String TEST_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
     private static final String LOVE_YOUR_WIFE_BANNER_AD_UNIT_ID = "ca-app-pub-2213157796139553/5280225966";
     private static final String LOVE_YOUR_WIFE_V2_BANNER_AD_UNIT_ID = "ca-app-pub-2213157796139553/3417772111";
+    static final String FIREBASE_DYNAMIC_LINK_DOMAIN_URI_PREFIX = "loveyourwife2.page.link";
+    static final String FIREBASE_DYNAMIC_LINK_WEBSITE_URI = "http://jeffreypadgett.wixsite.com/loveyourwife";
+
     // use for actual device testing of production-like ads from admob- to use with adRequest
     private static final String TEST_DEVICE = "8D254604C542C16046E353C4773A21DC";
     private InterstitialAd mInterstitialAd;
@@ -178,8 +176,8 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
 
     public void onInviteClicked() {
         Task<ShortDynamicLink> shortTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("http://jeffreypadgett.wixsite.com/loveyourwife")) // put website here
-                .setDynamicLinkDomain("loveyourwife.page.link")
+                .setLink(Uri.parse(MainActivity.FIREBASE_DYNAMIC_LINK_WEBSITE_URI)) // put website here
+                .setDomainUriPrefix(MainActivity.FIREBASE_DYNAMIC_LINK_DOMAIN_URI_PREFIX)
                 // Open links with this app on Android
                 .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
                 .buildShortDynamicLink().addOnCompleteListener(new OnCompleteListener<ShortDynamicLink>() {

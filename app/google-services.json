@@ -1,52 +1,44 @@
 {
   "project_info": {
-    "project_number": "239295883559",
-    "firebase_url": "https://love-your-wife.firebaseio.com",
-    "project_id": "love-your-wife",
-    "storage_bucket": "love-your-wife.appspot.com"
+    "project_number": "102871581064",
+    "project_id": "love-your-wife-v2",
+    "storage_bucket": "love-your-wife-v2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:239295883559:android:e41b708b8eba7092",
+        "mobilesdk_app_id": "1:102871581064:android:51dc57264abe92c71c7a3d",
         "android_client_info": {
-          "package_name": "jeffpadgett.LoveYourWife"
+          "package_name": "com.loveyourwife"
         }
       },
       "oauth_client": [
         {
-          "client_id": "239295883559-tj7mgumocrtjjr4us6bb895d2f8b5kua.apps.googleusercontent.com",
+          "client_id": "102871581064-trsh819rhv1frrgcrhh3hpjt2i43n8ug.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "jeffpadgett.LoveYourWife",
-            "certificate_hash": "8ecec6b1537256f81d88d100abf7f0b6970e3f2e"
+            "package_name": "com.loveyourwife",
+            "certificate_hash": "7f81d85a76403240a194e2e3292d02126a346fc4"
           }
         },
         {
-          "client_id": "239295883559-m7faec229d1rpk05594f1tkkdev876on.apps.googleusercontent.com",
+          "client_id": "102871581064-u7g3mhallec65g45b87ungkggkk2to87.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAn5zrK5UtpFk2Ud7EXrYsM6KJnX1_r-Y8"
+          "current_key": "AIzaSyBqioSy0g_4RKiJh6QKLcdJXneisuIAvng"
         }
       ],
       "services": {
-        "analytics_service": {
-          "status": 1
-        },
         "appinvite_service": {
-          "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "239295883559-m7faec229d1rpk05594f1tkkdev876on.apps.googleusercontent.com",
+              "client_id": "102871581064-u7g3mhallec65g45b87ungkggkk2to87.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
-        },
-        "ads_service": {
-          "status": 2
         }
       }
     }

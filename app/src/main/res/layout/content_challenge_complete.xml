@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/flowers"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="jeffpadgett.LoveYourWife.ChallengeComplete"
+    tools:context="com.loveyourwife.ChallengeComplete"
     tools:showIn="@layout/activity_challenge_complete">
 
     <ImageView

@@ -1,4 +1,4 @@
-package jeffpadgett.LoveYourWife;
+package com.loveyourwife;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,8 +23,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -179,8 +177,8 @@ public class TrophyPage extends AppCompatActivity {
 
 
         Task<ShortDynamicLink> shortTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("http://jeffreypadgett.wixsite.com/loveyourwife")) // put website here
-                .setDynamicLinkDomain("loveyourwife.page.link")
+                .setLink(Uri.parse(MainActivity.FIREBASE_DYNAMIC_LINK_WEBSITE_URI)) // put website here
+                .setDomainUriPrefix(MainActivity.FIREBASE_DYNAMIC_LINK_DOMAIN_URI_PREFIX)
                 // Open links with this app on Android
                 .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
                 .buildShortDynamicLink().addOnCompleteListener(new OnCompleteListener<ShortDynamicLink>() {

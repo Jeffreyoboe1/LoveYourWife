@@ -8,7 +8,7 @@
     android:background="@drawable/flowers"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="jeffpadgett.LoveYourWife.MainActivity">
+    tools:context="com.loveyourwife.MainActivity">
 
     <!--    TODO: issue with logo size-->
     <androidx.appcompat.widget.Toolbar

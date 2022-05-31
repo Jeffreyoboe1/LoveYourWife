@@ -1,4 +1,4 @@
-package jeffpadgett.LoveYourWife;
+package com.loveyourwife;
 
 import android.app.Activity;
 import android.content.Context;

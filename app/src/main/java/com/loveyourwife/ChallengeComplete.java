@@ -1,4 +1,4 @@
-package jeffpadgett.LoveYourWife;
+package com.loveyourwife;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -275,8 +275,8 @@ public class ChallengeComplete extends AppCompatActivity {
 
 
         Task<ShortDynamicLink> shortTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse("http://jeffreypadgett.wixsite.com/loveyourwife")) // put website here
-                .setDynamicLinkDomain("loveyourwife.page.link")
+                .setLink(Uri.parse(MainActivity.FIREBASE_DYNAMIC_LINK_WEBSITE_URI)) // put website here
+                .setDomainUriPrefix(MainActivity.FIREBASE_DYNAMIC_LINK_DOMAIN_URI_PREFIX)
                 // Open links with this app on Android
                 .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
                 .buildShortDynamicLink().addOnCompleteListener(new OnCompleteListener<ShortDynamicLink>() {

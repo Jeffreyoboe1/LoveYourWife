@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jeffpadgett.LoveYourWife">
+    package="com.loveyourwife">
 
     <uses-permission android:name="com.android.vending.BILLING" />
 
@@ -17,10 +17,10 @@
 <!--        Version 2 LoveYourWife app id: ca-app-pub-2213157796139553~6824047543-->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-ca-app-pub-2213157796139553~6824047543" />
+            android:value="ca-app-pub-2213157796139553~6824047543" />
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.loveyourwife.MainActivity"
             android:exported="true"
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize">
@@ -31,13 +31,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChallengeComplete"
+            android:name="com.loveyourwife.ChallengeComplete"
             android:label="@string/title_activity_challenge_complete"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName="com.loveyourwife.MainActivity"
             />
-        <activity android:name=".ThankYou" />
+        <activity android:name="com.loveyourwife.ThankYou" />
         <activity
-            android:name=".TrophyPage"
+            android:name="com.loveyourwife.TrophyPage"
             android:label="Trophies"
             />
     </application>
