@@ -1,5 +1,7 @@
 package jeffpadgett.LoveYourWife;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -9,9 +11,12 @@ import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -34,6 +39,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.dynamiclinks.DynamicLink;
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks;
 import com.google.firebase.dynamiclinks.ShortDynamicLink;
+
+import java.util.function.Function;
 
 public class MainActivity extends AppCompatActivity implements DayFragment.OnDayCompletedListener {
 
@@ -70,13 +77,10 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
 
         //TODO:  replace with my legit app id, which is in my email.  This is a test.
         MobileAds.initialize(this, initializationStatus -> {});
-        loadInterstitial();
+        loadInterstitial(null);
 
         //TODO:  replace this builder with the commented one.
         //AdRequest adRequest = new AdRequest.Builder().build();
-
-
-
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -110,7 +114,6 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-
         return true;
     }
 
@@ -202,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
     }
 
     @Override
-    public void onDayCompleted(final int day) {
+    public void onDayCompleted(final int day, Button button) {
         if (mInterstitialAd != null) {
             Log.d(TAG, "show loaded ad");
 
@@ -211,6 +214,9 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
                 public void onAdDismissedFullScreenContent() {
                     Log.d(TAG, "The ad was dismissed.");
                     // Called when fullscreen content is dismissed.
+                    Intent intent = new Intent(MainActivity.this , ChallengeComplete.class);
+                    intent.putExtra("DAY", day);
+                    startActivity(intent);
                 }
 
                 @Override
@@ -226,7 +232,22 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
                     // Make sure to set your reference to null so you don't
                     // show it a second time.
                     mInterstitialAd = null;
-                    loadInterstitial();
+                    SharedPreferences sharedPrefComplete = getSharedPreferences("COMPLETED", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor compEditor = sharedPrefComplete.edit();
+                    compEditor.putBoolean(Integer.toString(day -1), true);
+                    compEditor.commit();
+
+                    SharedPreferences sharedPreferences = getSharedPreferences("LASTCOMPLETED", 0);
+                    boolean dayIsGreater = day > sharedPreferences.getInt("LASTCOMPLETED", 0);
+
+                    if (dayIsGreater) {
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putInt("LASTCOMPLETED", day);
+                        editor.commit();
+                    }
+
+                    button.setText(getString(R.string.completed));
+                    loadInterstitial(null);
                 }
             });
 
@@ -234,13 +255,35 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
         } else {
             // TODO: test without internet... possibly display toast instead (ad was not ready).
             Log.d(TAG, "Ad was not loaded, going to ChallengeComplete without loading ad.");
-            Intent intent = new Intent(this, ChallengeComplete.class);
-            intent.putExtra("DAY", day);
-            startActivity(intent);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder
+                    .setMessage(R.string.error_completing_dialog_message)
+                    .setTitle(R.string.error_completing_dialog_title)
+                    .setPositiveButton(R.string.try_again, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    loadInterstitial(new OnAdLoaded() {
+                        @Override
+                        public void onAdLoaded() {
+                            onDayCompleted(day, button);
+                        }
+                    });
+                }
+            });
+            builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    dialog.dismiss();
+                }
+            });
+
+// 3. Get the <code><a href="/reference/android/app/AlertDialog.html">AlertDialog</a></code> from <code><a href="/reference/android/app/AlertDialog.Builder.html#create()">create()</a></code>
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
     }
 
-    private void loadInterstitial() {
+
+    private void loadInterstitial(@Nullable OnAdLoaded onAdLoaded) {
         AdRequest adRequest = new AdRequest.Builder().build();
 
         InterstitialAd.load(this, TEST_INTERSTITIAL_AD_UNIT_ID, adRequest,
@@ -248,6 +291,9 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
                     @Override
                     public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
                         mInterstitialAd = interstitialAd;
+                        if (onAdLoaded != null) {
+                            onAdLoaded.onAdLoaded();
+                        }
                         Log.d(TAG, "onAdLoaded");
                     }
 
@@ -258,20 +304,9 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
                     }
                 });
     }
+}
 
-    private AdSize getAdSize() {
-        // Step 2 - Determine the screen width (less decorations) to use for the ad width.
-        Display display = getWindowManager().getDefaultDisplay();
-        DisplayMetrics outMetrics = new DisplayMetrics();
-        display.getMetrics(outMetrics);
-
-        float widthPixels = outMetrics.widthPixels;
-        float density = outMetrics.density;
-
-        int adWidth = (int) (widthPixels / density);
-
-        // Step 3 - Get adaptive ad size and return for setting on the ad view.
-        return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(this, adWidth);
-    }
+interface OnAdLoaded {
+    public void onAdLoaded();
 }
 

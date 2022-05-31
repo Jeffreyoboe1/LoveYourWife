@@ -127,4 +127,9 @@ A cord of three strands is not quickly broken.\"
     <string name="CompleteChallengeOn">Complete the challenge on day</string>
     <string name="SpaceToUnlock">to unlock.</string>
     <string name="CompleteChallengeForTrophy">You must complete a challenge to obtain a trophy.</string>
+    <string name="completed">Completed!</string>
+    <string name="error_completing_dialog_message">Check your internet connection. Try again?</string>
+    <string name="error_completing_dialog_title">Error Completing Challenge</string>
+    <string name="try_again">Try again</string>
+    <string name="cancel">Cancel</string>
 </resources>

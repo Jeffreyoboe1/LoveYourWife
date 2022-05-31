@@ -3,35 +3,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="jeffpadgett.LoveYourWife.MainActivity">
 
-
     <item
         android:id="@+id/action_share_app"
         android:icon="@drawable/share_white"
         android:orderInCategory="50"
         android:title="Invite"
         app:showAsAction="ifRoom" />
-
     <item
         android:id="@+id/action_jumpCurrent"
         android:orderInCategory="75"
         android:title="Current Challenge"
         app:showAsAction="never"/>
-
     <item
         android:id="@+id/action_jumpBeginning"
         android:orderInCategory="150"
         android:title="Day 1"
         app:showAsAction="never"
         />
-
     <item
         android:id="@+id/action_jumpEnd"
         android:orderInCategory="200"
         android:title="Day 30"
         app:showAsAction="never"
         />
-
-
     <item
         android:id="@+id/action_trophyPage"
         android:orderInCategory="250"

@@ -163,8 +163,6 @@ public class TrophyPage extends AppCompatActivity {
                 startActivity(intent3);
                 break;
             case R.id.action_trophyPage:
-                Intent trophyIntent = new Intent(TrophyPage.this, TrophyPage.class);
-                startActivity(trophyIntent);
                 break;
             case R.id.action_share_app:
                 onInviteClicked();

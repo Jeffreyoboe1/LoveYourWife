@@ -23,15 +23,13 @@ public class DayFragment extends Fragment {
     OnDayCompletedListener onDayCompletedListener;
 
     public interface OnDayCompletedListener {
-        void onDayCompleted(int day);
+        void onDayCompleted(int day, Button button);
     }
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String TAG = "Day.java";
-    private static String sharedPrefKey;
-    private static String sharedPrefPreviousKey;
 
     TextView tvDayNumber;
     TextView textView1;
@@ -81,17 +79,11 @@ public class DayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this
-
-        // TODO: check to see if the content is purchase - momentarily created as an argument
-        // contentPurchased = false;
-
         final int day = mParam1 + 1;
-        sharedPrefPreviousKey = (mParam1 - 1) + "";
 
         //if previous challenge not complete, call the locked layout
         final SharedPreferences sharedPreviousCompleted = getActivity().getSharedPreferences("COMPLETED", Context.MODE_PRIVATE);
-        final Boolean previousDayCompleted = sharedPreviousCompleted.getBoolean(sharedPrefPreviousKey, false);
+        final Boolean previousDayCompleted = sharedPreviousCompleted.getBoolean(Integer.toString(day - 2), false);
 
         View v;
         if (mParam1 != 0 && mParam1 != 1 && !previousDayCompleted) {
@@ -115,17 +107,16 @@ public class DayFragment extends Fragment {
 
             tvDayNumber.setText("Day " + day);
 
-            sharedPrefKey = mParam1 + "";
 
             // set the User's previous comments
             final SharedPreferences sharedPref = getActivity().getSharedPreferences("THOUGHTS", Context.MODE_PRIVATE);
-            String fillEditText = sharedPref.getString(sharedPrefKey, "");
+            String fillEditText = sharedPref.getString(Integer.toString(day - 1), "");
             editText.setText(fillEditText);
 
             // set whether this day has been completed.... now for some reason... this stuff here does not work...
             // sometimes it will fill the wrong day... maybe it has to do with the auto pager change...
             final SharedPreferences sharedPrefCompleted = getActivity().getSharedPreferences("COMPLETED", Context.MODE_PRIVATE);
-            final Boolean dayCompleted = sharedPrefCompleted.getBoolean(sharedPrefKey, false);
+            final Boolean dayCompleted = sharedPrefCompleted.getBoolean(day - 1 + "", false);
 
             if (dayCompleted) {
                 btnComplete.setText("Completed!");
@@ -231,16 +222,8 @@ public class DayFragment extends Fragment {
             btnComplete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//TODO: change back to 25
                     if (editText.getText().length() > 20) {
-                        btnComplete.setText("Completed!");
-
-                        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("LASTCOMPLETED", 0);
-                        SharedPreferences.Editor editor = sharedPreferences.edit();
-                        editor.putInt("LASTCOMPLETED", day);
-                        editor.commit();
-
-                        onDayCompletedListener.onDayCompleted(day);
+                        onDayCompletedListener.onDayCompleted(day, btnComplete);
                     } else {
                         Toast.makeText(getActivity(), "You can say a little more than that! ", Toast.LENGTH_SHORT).show();
                     }
@@ -260,21 +243,10 @@ public class DayFragment extends Fragment {
         SharedPreferences sharedPref = getActivity().getSharedPreferences("THOUGHTS", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
 
-        sharedPrefKey = "" + mParam1;
+        int day = mParam1 + 1;
         if (editText != null) {
-            editor.putString(sharedPrefKey, editText.getText().toString());
+            editor.putString((day - 1) + "", editText.getText().toString());
             editor.commit();
-        }
-
-        if (btnComplete != null) {
-            if (btnComplete.getText().toString().equals("Completed!")) {
-                Log.d(TAG, "button match.  shared pref key is " + sharedPrefKey + " param is " + mParam1);
-                SharedPreferences sharedPrefComplete = getActivity().getSharedPreferences("COMPLETED", Context.MODE_PRIVATE);
-                SharedPreferences.Editor compEditor = sharedPrefComplete.edit();
-                compEditor.putBoolean(sharedPrefKey, true);
-                compEditor.commit();
-
-            }
         }
 
         super.onPause();
@@ -291,7 +263,6 @@ public class DayFragment extends Fragment {
 
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
-
         Activity a;
         if (context instanceof Activity) {
             a = (Activity) context;
