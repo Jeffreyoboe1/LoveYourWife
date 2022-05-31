@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Love Your Husband</string>
+    <string name="app_name">Love Your Wife</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
 
@@ -107,20 +107,20 @@ A cord of three strands is not quickly broken.\"
     <string name="inspire30">\"Greater love has no one than this, that someone lay down his life for his friends.\"
  \n\n — Jesus, John 15:13</string>
 
-    <string name="invitation_title">LoveYourHusband Invitation</string>
-    <string name="invitation_message">Hi, I\'ve been using this app called "Love Your Husband". It can help improve you marriage.\u0020</string>
+    <string name="invitation_title">LoveYourWife Invitation</string>
+    <string name="invitation_message">Hi, I\'ve been using this app called "Love Your Wife". It can help improve you marriage.\u0020</string>
     <string name="invitation_deep_link">google.com</string>
     <string name="invitation_cta">Click here to open</string>
 
     <string name="title_activity_challenge_complete">Challenge Complete</string>
-    <string name="Completed30Days">You have Completed the 30 day Challenge to Love Your Husband!</string>
-    <string name="RecommendMessage">Hi, I want to recommend the App LoveYourHusband. It can help to improve your relationship with your husband.\u0020</string>
-    <string name="RecommendSubject">Love Your Husband</string>
-    <string name="RecommendMessageHTML"><![CDATA[<p>Hi!  I\'ve been using this app called Love Your Husband, and wanted to recommend it to you. It has great ideas to improve your marriage and love your husband better. Click on this link to check it out.]]></string>
-    <string name="RecommendToFriendTitle">Recommend Love Your Husband to a friend</string>
+    <string name="Completed30Days">You have Completed the 30 day Challenge to Love Your Wife!</string>
+    <string name="RecommendMessage">Hi, I want to recommend the App Love Your Wife. It can help to improve your relationship with your wife.\u0020</string>
+    <string name="RecommendSubject">Love Your Wife</string>
+    <string name="RecommendMessageHTML"><![CDATA[<p>Hi!  I\'ve been using this app called Love Your Wife, and wanted to recommend it to you. It has great ideas to improve your marriage and love your wife better. Click on this link to check it out.]]></string>
+    <string name="RecommendToFriendTitle">Recommend Love Your Wife to a friend</string>
     <string name="Invitation_Error">Error creating invitation link.  Are you connected to the internet?</string>
     <string name="ProblemLoadingBillingClient">Problem Loading the Billing Client through Google.</string>
-    <string name="BillingDisconnected">LoveYourHusband Billing Service disconnected.</string>
+    <string name="BillingDisconnected">Love Your Wife Billing Service disconnected.</string>
     <string name="BillingDisconnectStartService">Billing is disconnected, called startServiceconnection again</string>
     <string name="BillingNotSupported">Google Play billing is not supported on this device.</string>
     <string name="Day">Day</string>

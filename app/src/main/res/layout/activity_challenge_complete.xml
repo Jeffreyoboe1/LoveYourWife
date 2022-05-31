@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             app:logo="@mipmap/ic_launcher"
-            app:title="Love Your Husband"
+            app:title="Love Your Wife"
             app:titleMarginStart="32dp" />
 
     </com.google.android.material.appbar.AppBarLayout>
