@@ -14,9 +14,10 @@
 
         <!-- TODO:        using sample id  ca-app-pub-3940256099942544~3347511713 -->
 <!--        Actual LoveYourWife app id: ca-app-pub-2213157796139553~1621803128-->
+<!--        Version 2 LoveYourWife app id: ca-app-pub-2213157796139553~6824047543-->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-2213157796139553~1621803128" />
+            android:value="ca-app-pub-ca-app-pub-2213157796139553~6824047543" />
 
         <activity
             android:name=".MainActivity"
