@@ -127,7 +127,6 @@ public class ThankYou extends AppCompatActivity {
 
                         } else {
                             // Error
-                            // ...
                             Toast.makeText(ThankYou.this, getString(R.string.Invitation_Error), Toast.LENGTH_SHORT).show();
                         }
                     }

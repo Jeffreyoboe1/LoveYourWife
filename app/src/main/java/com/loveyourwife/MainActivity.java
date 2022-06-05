@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
     private static final String TEST_BANNER_AD_UNIT_ID = "ca-app-pub-3940256099942544/6300978111";
     private static final String LOVE_YOUR_WIFE_BANNER_AD_UNIT_ID = "ca-app-pub-2213157796139553/5280225966";
     private static final String LOVE_YOUR_WIFE_V2_BANNER_AD_UNIT_ID = "ca-app-pub-2213157796139553/3417772111";
-    static final String FIREBASE_DYNAMIC_LINK_DOMAIN_URI_PREFIX = "loveyourwife2.page.link";
+    static final String FIREBASE_DYNAMIC_LINK_DOMAIN_URI_PREFIX = "https://loveyourwife2.page.link";
     static final String FIREBASE_DYNAMIC_LINK_WEBSITE_URI = "http://jeffreypadgett.wixsite.com/loveyourwife";
 
     // use for actual device testing of production-like ads from admob- to use with adRequest
