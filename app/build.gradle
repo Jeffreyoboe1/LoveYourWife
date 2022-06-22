@@ -18,13 +18,15 @@ android {
             shrinkResources true
         }
     }
-
+    flavorDimensions "version"
     productFlavors {
         loveYourWife {
+            dimension "version"
             applicationId "com.loveyourwife"
         }
 
         loveYourHusband {
+            dimension "version"
             applicationId "com.loveyourhusband2"
         }
     }

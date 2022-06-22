@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "523401833739",
+    "project_id": "love-your-husband-2",
+    "storage_bucket": "love-your-husband-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:523401833739:android:02761e19be3e08dbd8460e",
+        "android_client_info": {
+          "package_name": "com.loveyourhusband2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "523401833739-f4kt6dav27esnbd6cfkj6onanli1uvav.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8qNL8FHWIndqgzW5vCqp6nh5auhC9M8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "523401833739-f4kt6dav27esnbd6cfkj6onanli1uvav.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

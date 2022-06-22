@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.List;
+
 public class DayFragment extends Fragment {
 
     OnDayCompletedListener onDayCompletedListener;
@@ -125,99 +127,107 @@ public class DayFragment extends Fragment {
                 btnComplete.setText("Complete");
             }
 
+            final String[] dayChallengeTextArray = getResources().getStringArray(R.array.day_challenge_texts);
 
-            switch (mParam1) {
-                case 0:
-                    textView1.setText(R.string.day1text);
-                    break;
-                case 1:
-                    textView1.setText(R.string.day2text);
-                    break;
-                case 2:
-                    textView1.setText(R.string.day3text);
-                    break;
-                case 3:
-                    textView1.setText(R.string.day4text);
-                    break;
-                case 4:
-                    textView1.setText(R.string.day5text);
-                    break;
-                case 5:
-                    textView1.setText(R.string.day6text);
-                    break;
-                case 6:
-                    textView1.setText(R.string.day7text);
-                    break;
-                case 7:
-                    textView1.setText(R.string.day8text);
-                    break;
-                case 8:
-                    textView1.setText(R.string.day9text);
-                    break;
-                case 9:
-                    textView1.setText(R.string.day10text);
-                    break;
-                case 10:
-                    textView1.setText(R.string.day11text);
-                    break;
-                case 11:
-                    textView1.setText(R.string.day12text);
-                    break;
-                case 12:
-                    textView1.setText(R.string.day13text);
-                    break;
-                case 13:
-                    textView1.setText(R.string.day14text);
-                    break;
-                case 14:
-                    textView1.setText(R.string.day15text);
-                    break;
-                case 15:
-                    textView1.setText(R.string.day16text);
-                    break;
-                case 16:
-                    textView1.setText(R.string.day17text);
-                    break;
-                case 17:
-                    textView1.setText(R.string.day18text);
-                    break;
-                case 18:
-                    textView1.setText(R.string.day19text);
-                    break;
-                case 19:
-                    textView1.setText(R.string.day20text);
-                    break;
-                case 20:
-                    textView1.setText(R.string.day21text);
-                    break;
-                case 21:
-                    textView1.setText(R.string.day22text);
-                    break;
-                case 22:
-                    textView1.setText(R.string.day23text);
-                    break;
-                case 23:
-                    textView1.setText(R.string.day24text);
-                    break;
-                case 24:
-                    textView1.setText(R.string.day25text);
-                    break;
-                case 25:
-                    textView1.setText(R.string.day26text);
-                    break;
-                case 26:
-                    textView1.setText(R.string.day27text);
-                    break;
-                case 27:
-                    textView1.setText(R.string.day28text);
-                    break;
-                case 28:
-                    textView1.setText(R.string.day29text);
-                    break;
-                case 29:
-                    textView1.setText(R.string.day30text);
-                    break;
+            try {
+                final String todayChallengeText = dayChallengeTextArray[mParam1];
+                textView1.setText(todayChallengeText);
+            } catch (Exception e) {
+                Log.e(TAG, "Error getting day text");
             }
+
+//            switch (mParam1) {
+//                case 0:
+//                    textView1.setText(R.string.day1text);
+//                    break;
+//                case 1:
+//                    textView1.setText(R.string.day2text);
+//                    break;
+//                case 2:
+//                    textView1.setText(R.string.day3text);
+//                    break;
+//                case 3:
+//                    textView1.setText(R.string.day4text);
+//                    break;
+//                case 4:
+//                    textView1.setText(R.string.day5text);
+//                    break;
+//                case 5:
+//                    textView1.setText(R.string.day6text);
+//                    break;
+//                case 6:
+//                    textView1.setText(R.string.day7text);
+//                    break;
+//                case 7:
+//                    textView1.setText(R.string.day8text);
+//                    break;
+//                case 8:
+//                    textView1.setText(R.string.day9text);
+//                    break;
+//                case 9:
+//                    textView1.setText(R.string.day10text);
+//                    break;
+//                case 10:
+//                    textView1.setText(R.string.day11text);
+//                    break;
+//                case 11:
+//                    textView1.setText(R.string.day12text);
+//                    break;
+//                case 12:
+//                    textView1.setText(R.string.day13text);
+//                    break;
+//                case 13:
+//                    textView1.setText(R.string.day14text);
+//                    break;
+//                case 14:
+//                    textView1.setText(R.string.day15text);
+//                    break;
+//                case 15:
+//                    textView1.setText(R.string.day16text);
+//                    break;
+//                case 16:
+//                    textView1.setText(R.string.day17text);
+//                    break;
+//                case 17:
+//                    textView1.setText(R.string.day18text);
+//                    break;
+//                case 18:
+//                    textView1.setText(R.string.day19text);
+//                    break;
+//                case 19:
+//                    textView1.setText(R.string.day20text);
+//                    break;
+//                case 20:
+//                    textView1.setText(R.string.day21text);
+//                    break;
+//                case 21:
+//                    textView1.setText(R.string.day22text);
+//                    break;
+//                case 22:
+//                    textView1.setText(R.string.day23text);
+//                    break;
+//                case 23:
+//                    textView1.setText(R.string.day24text);
+//                    break;
+//                case 24:
+//                    textView1.setText(R.string.day25text);
+//                    break;
+//                case 25:
+//                    textView1.setText(R.string.day26text);
+//                    break;
+//                case 26:
+//                    textView1.setText(R.string.day27text);
+//                    break;
+//                case 27:
+//                    textView1.setText(R.string.day28text);
+//                    break;
+//                case 28:
+//                    textView1.setText(R.string.day29text);
+//                    break;
+//                case 29:
+//                    textView1.setText(R.string.day30text);
+//                    break;
+//            }
 
             btnComplete.setOnClickListener(new View.OnClickListener() {
                 @Override
