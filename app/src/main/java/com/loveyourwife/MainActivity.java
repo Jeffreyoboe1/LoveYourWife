@@ -176,8 +176,8 @@ public class MainActivity extends AppCompatActivity implements DayFragment.OnDay
 
     public void onInviteClicked() {
         Task<ShortDynamicLink> shortTask = FirebaseDynamicLinks.getInstance().createDynamicLink()
-                .setLink(Uri.parse(MainActivity.FIREBASE_DYNAMIC_LINK_WEBSITE_URI)) // put website here
-                .setDomainUriPrefix(MainActivity.FIREBASE_DYNAMIC_LINK_DOMAIN_URI_PREFIX)
+                .setLink(Uri.parse(getString(R.string.firebase_dynamic_link_website_uri))) // put website here
+                .setDomainUriPrefix(getString(R.string.firebase_dynamic_link_domain_uri_prefix)) // from firebase console
                 // Open links with this app on Android
                 .setAndroidParameters(new DynamicLink.AndroidParameters.Builder().build())
                 .buildShortDynamicLink().addOnCompleteListener(new OnCompleteListener<ShortDynamicLink>() {
